@@ -1,3 +1,61 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .container {
+        @apply w-[1700px] h-full;
+    }
+    .btn{
+        @apply w-[40px] h-[40px] rounded-full flex items-center justify-center active:bg-dark_hover_1;
+    }
+    .p16 {
+        @apply px-[16px];
+    }
+    .textPrimary {
+        font-size: 16px;
+        line-height: 21px;
+        @apply text-dark_text_1;
+    }
+    .textSecondary {
+        font-size: 14px;
+        line-height: 19px;
+        @apply text-dark_text_2;
+    }
+    .input{
+        @apply w-full dark:bg-dark_bg_2 p-1.5 dark:text-dark_text_1 rounded-lg flex-1 outline-none;
+    }
+    .convos{
+        height: calc(100vh - 220px);
+        overflow-y: auto;
+    }
+}
+
+
+/*---- Animations  ---*/
+
+.rotateAnimation{
+    animation: rotate 0.3s forwards;
+}
+
+@keyframes rotate {
+    0%{
+        transform: rotate(-90deg);
+    }
+}
+
+/*---- Custom scrollbar --*/
+/*----- width--*/
+.scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* track */
+.scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+/* thumb */
+
+.scrollbar::-webkit-scrollbar-thumb{
+    background: #444e54;
+}
