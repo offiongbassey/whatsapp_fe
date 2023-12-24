@@ -4,7 +4,11 @@
 
 @layer components {
     .container {
-        @apply w-[1700px] h-full;
+        width:  calc(100% - 38px);
+        max-width: 1600px;
+    }
+    .flex0030 {
+        flex: 0 0 30%;
     }
     .btn{
         @apply w-[40px] h-[40px] rounded-full flex items-center justify-center active:bg-dark_hover_1;
@@ -27,6 +31,11 @@
     }
     .convos{
         height: calc(100vh - 220px);
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+    .overflow_scrollbar {
+        height: calc(100vh - 155px);
         overflow-y: auto;
         overflow-x: hidden;
     }
@@ -59,4 +68,82 @@
 
 .scrollbar::-webkit-scrollbar-thumb{
     background: #444e54;
+}
+
+/*--- Emoji picker */
+.epr-dark-theme {
+    background: #202c33 !important;
+    border-radius: 0 !important;
+    border: none !important;
+}
+.epr-dark-theme {
+    width: 100% !important;
+}
+
+.openEmojiAnimation {
+    animation: openAn 0.1s forwards;
+}
+
+@keyframes openAn {
+    0% {
+        transform: translateY(60px);
+    }
+}
+.epr-search-container input {
+    background: #222e35 !important;
+    border-radius: 0 !important;
+    border: none !important;
+    font-size: 13px;
+}
+
+.epr-preview {
+    display: none !important;
+}
+
+.epr-emoji-category-label {
+    background: transparent !important;
+    font-size: 15px;
+    font-weight: normal !important;
+}
+/*--- Emoji Scrollbar --*/
+/* width */
+.epr-body::-webkit-scrollbar {
+    width: 6px !important;
+}
+
+/* Track */
+.epr-body::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+
+/* Handle */
+.epr-body::-webkit-scrollbar-thumb {
+    background: #444e54 !important;
+}
+.epr-category-nav {
+    padding: 10px 0 !important;
+}
+.epr-category-nav .epr-active::after {
+    content: "";
+    width: 140px;
+    height: 4px;
+    background: #00a884;
+    position: absolute;
+    bottom: -10px;
+    left: -55px;
+}
+
+.epr-header {
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.openToolsAnimation {
+    animation: openTools 0.2s forwards;
+}
+
+@keyframes openTools {
+    0% {
+        transform: translateY(100%);
+    }
 }

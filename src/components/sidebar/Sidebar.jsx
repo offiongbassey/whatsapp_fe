@@ -6,9 +6,8 @@ import Conversations from "./conversations/Conversations";
 
 export default function Sidebar() {
   const [ searchResults, setSearchResults ] = useState([]);
-  console.log(searchResults);
   return (
-    <div className="w-[40%] h-full select-none">
+    <div className="flex0030 max-w-[30%] h-full select-none">
       {/*sidebar header */}
       <SidebarHeader />
       {/* Notifications */}
@@ -19,7 +18,8 @@ export default function Sidebar() {
       {/* Search Results */}
       {
         searchResults.length > 0 ? <>
-        <SearchResults searchResults={searchResults} />
+        <SearchResults searchResults={searchResults} 
+        setSearchResults={setSearchResults} />
         </>
         : <>
           {/* Conversations */}

@@ -1,10 +1,30 @@
 
 import moment from "moment";
 import { dateHandler } from "../../../utils/date";
+import { useDispatch, useSelector } from "react-redux";
+import { openCreateCoversation } from "../../../features/chatSlice";
+import { getConversationId } from "../../../utils/chat.js";
+import { capitalize } from "../../../utils/string";
 
 export default function Conversation({ convo }) {
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.user);
+  const { activeConversation} = useSelector((state) => state.chat);
+  const values = {
+    token: user.token,
+    receiver_id: getConversationId(user, convo.users)
+  }
+  const openConversation = () => {
+    dispatch(openCreateCoversation(values));
+  }
   return (
-    <li className="list-none h-[72px] w-full dark:bg-dark_bg_1 hover:dark:bg-dark_bg_2 cursor-pointer dark:text-dark_text_1 px-[10px]">
+    <li 
+    onClick={() => openConversation()}
+    className={`list-none h-[72px] w-full dark:bg-dark_bg_1 hover:${
+      convo._id !== activeConversation._id ? "dark:bg-dark_bg_2" : ""
+      } cursor-pointer dark:text-dark_text_1 px-[10px] ${
+        convo._id === activeConversation._id ? "dark:bg-dark_hover_1" : ""
+        }`}>
       {/* Container */}
       <div className="relative w-full flex items-center justify-between py-[10px]">
       {/* left */}
@@ -17,13 +37,13 @@ export default function Conversation({ convo }) {
           <div className="w-full flex flex-col">
               {/* Conversation name */}
                 <h1 className="font-bold flex items-center gap-x-2">
-                  {convo.name}
+                  {capitalize(convo.name)}
                   </h1>
                 {/* Conversation Message */}
                 <div>
                     <div className="flex items-center gap-x-1 dark:text-dark_text_2">
                         <div className="flex-1 items-center gap-x-1 dark:text-dark_text_2">
-                          <p>{convo.latestMessage.message}</p>
+                          <p>{convo.latestMessage.message.length > 30 ? `${convo.latestMessage.message.substring(0, 20)}...` : convo.latestMessage.message}</p>
 
                         </div>
                     </div>
