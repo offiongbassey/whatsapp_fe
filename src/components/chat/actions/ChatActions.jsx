@@ -6,8 +6,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { sendMessage } from "../../../features/chatSlice";
 import { ClipLoader } from "react-spinners";
 import EmojiPickerApp from "./EmojiPickerApp";
+import SocketContext from "../../../context/sendContext";
 
-export default function ChatActions() {
+function ChatActions({ socket }) {
 const dispatch = useDispatch();
 const [showAttachments, setShowAttachments] = useState(false);
 const [showEmoji, setShowEmoji] = useState(false);
@@ -27,7 +28,9 @@ const values = {
 const SendMessageHandler = async (e) => {
     e.preventDefault();
     setLoading(true);
-    await dispatch(sendMessage(values));
+   let newMsg = await dispatch(sendMessage(values));
+   setShowEmoji(false);
+   socket.emit("send message", newMsg.payload);
     setMessage("");
     setLoading(false);
 
@@ -60,3 +63,12 @@ const SendMessageHandler = async (e) => {
     </form>
   )
 }
+
+
+const ChatActionsWithContext = (props) => (
+    <SocketContext.Consumer>
+        {(socket) => <ChatActions {...props} socket={socket} />}
+    </SocketContext.Consumer>
+);
+
+export default ChatActionsWithContext;
