@@ -27,13 +27,15 @@ const values = {
 }
 const SendMessageHandler = async (e) => {
     e.preventDefault();
-    setLoading(true);
-   let newMsg = await dispatch(sendMessage(values));
-   setShowEmoji(false);
-   socket.emit("send message", newMsg.payload);
-    setMessage("");
-    setLoading(false);
-
+    if(message !== ""){
+        setLoading(true);
+        let newMsg = await dispatch(sendMessage(values));
+        setShowEmoji(false);
+        setShowAttachments(false);
+        socket.emit("send message", newMsg.payload);
+        setMessage("");
+        setLoading(false);
+    }
 }
 
   return (
@@ -51,9 +53,12 @@ const SendMessageHandler = async (e) => {
             <Input message={message} setMessage={setMessage} textRef={textRef} />
             {/*send button */}
             
-            <button type="submit" className="btn">
+            <button type="submit" 
+            className="btn"
+            disabled={loading ? true : false}
+            >
             {
-               status === "loading" && loading ?
+                loading ?
                 <ClipLoader color="#E9EDEF" size={25} /> :
                 <SendIcon className="dark:fill-dark_svg_1" />
             }
