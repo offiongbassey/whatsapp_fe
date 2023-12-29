@@ -10,6 +10,7 @@ export default function PhotoAttachment() {
   const imageHandler = (e) => {
     let files = Array.from(e.target.files);
     files.forEach((file) => {
+     
       if(file.type !== "image/png" &&
       file.type !== "image/jpg" &&
       file.type !== "image/gif" &&
@@ -20,6 +21,7 @@ export default function PhotoAttachment() {
       file.type !== "video/webp"
       ){
         files = files.filter((item) => item.name !== file.name);
+        
         return;
       }else if(file.size > 1024 * 1024 * 10){
         files = files.filter((item) => item.name !== file.name);
@@ -27,12 +29,14 @@ export default function PhotoAttachment() {
       }else{
         const reader = new FileReader();
         reader.readAsDataURL(file);
+      
         reader.onload = (e) => {
           dispatch(
             addFiles({ file:file, fileData: e.target.result, 
               type: getFileType(file.type)})
           );
         }
+       
       }
     })
   }

@@ -6,6 +6,7 @@ import { useState } from "react";
 import { clearFiles, removeFileFromFiles, sendMessage } from "../../../../features/chatSlice";
 import SocketContext from "../../../../context/sendContext";
 import { ClipLoader } from "react-spinners";
+import VideoThumbnail from "react-video-thumbnail";
 
 function HandleAndSend({ activeIndex, setActiveIndex, message, socket }) {
   const dispatch = useDispatch();
@@ -34,9 +35,7 @@ function HandleAndSend({ activeIndex, setActiveIndex, message, socket }) {
   }
   //remove file
   const handleRemoveFile  = (index) => {
-    console.log("before ", files);
   dispatch(removeFileFromFiles(index));
-  console.log("here is me", files);
 
   }
   return (
@@ -55,16 +54,22 @@ function HandleAndSend({ activeIndex, setActiveIndex, message, socket }) {
           >
             {
               file.type === "IMAGE"
-              ? <img 
+              ? (<img 
               src={file.fileData} 
               alt="" 
               className="w-full h-full object-cover" />
+              )
+              : file.type === "VIDEO" ?(
+              <VideoThumbnail 
+              videoUrl={file.fileData}
+              />
+              )
               :
-              <img 
+              (<img 
               src={`../../../../images/file/${file.type}.png`} 
               alt="" 
               className="w-8 h-10 mt-1.5 ml-2.5" 
-              />
+              />)
             }
             {/* Remove file icon */}
             <div className="removeFileIcon hidden"
