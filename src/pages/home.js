@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import Peer from "simple-peer";
+import SimplePeer from "simple-peer";
 import { Sidebar } from "../components/sidebar";
 import { useDispatch, useSelector } from "react-redux";
 import { getConversations, updateMessagesAndConversations } from "../features/chatSlice";
@@ -40,7 +40,6 @@ function Home({ socket }) {
     //get online users
     socket.on('get-online-users', (users) => {
       setOnlineUsers(users);  
-      console.log("Online Users: ", users)
     })
   },[user]);
 
@@ -65,6 +64,7 @@ useEffect(() => {
     setCall({...call, callEnded: true, receivingCall: false});
     myVideo.current.srcObject = null;
     connectionRef?.current?.destroy();
+    window.location.reload();
   })
 },[]);
 
@@ -75,7 +75,7 @@ const callUser = () => {
     name:getConversationName(user, activeConversation.users),
     picture: getConversationPicture(user, activeConversation.users)
   });
-  const peer = new Peer({
+  const peer = new SimplePeer({
     initiator: true,
     trickle: false,
     stream: stream,
@@ -103,13 +103,13 @@ const callUser = () => {
 const answerCall = () => {
   enableMedia();
   setCallAccepted(true);
-  const peer = new Peer({
+  const peer = new SimplePeer({
     initiator: false,
     trickle: false,
     stream: stream,
   });
   peer.on('signal', (data) => {
-    socket.emit('answer call', ({signal:data, to:call.socketId}))
+    socket.emit('answer call', {signal:data, to:call.socketId})
   })
   peer.on('stream', (stream) => {
     userVideo.current.srcObject = stream;
@@ -123,8 +123,9 @@ const endCall = () => {
   setShow(false);
   setCall({...call, callEnded: true, receivingCall: false});
   myVideo.current.srcObject = null;
-  socket.emit('end call', call.socketId);
+  socket.emit("end call", call.socketId);
   connectionRef?.current?.destroy();
+  window.location.reload();
 }
 
 const setUpMedia = () => {
@@ -156,6 +157,8 @@ const enableMedia = () => {
     socket.on("stop typing", (message) => setTyping(false));
 
   },[]);
+
+  console.log("Call ended ", callEnded);
 
   return (
     <>

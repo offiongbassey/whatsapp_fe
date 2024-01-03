@@ -20,11 +20,11 @@ export default function Call({
   const { receivingCall, callEnded, name, picture } = call;
   const [showActions, setShowActions ] = useState(false);
   const [toggle, setToggle] = useState(false);
-    console.log(`{rec: ${receivingCall}  accp ${!callAccepted}}`)
+    console.log(`callended ${callEnded} show ${show} {rec: ${receivingCall}  accp ${!callAccepted}}`)
   return (
     <>
     <div className={`fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[550px] z-10 rounded-2xl overflow-hidden callbg
-    ${receivingCall && !callAccepted ? "hidden" : ""}
+    ${!show || (receivingCall && !callAccepted) ? "hidden" : ""}
     `}
     onMouseOver={() => setShowActions(true)}
     onMouseOut={() => setShowActions(false)}
@@ -87,7 +87,7 @@ export default function Call({
     </div>
     {/* ringing */}
       {
-        receivingCall && !callAccepted && (
+         receivingCall && !callAccepted && !callEnded && (
           <Ringing 
           call={call} 
           setCall={setCall} 
@@ -98,7 +98,7 @@ export default function Call({
       }
       {/* calling ringtone */}
       {
-         !callAccepted && show ? <audio src="../../../../audio/ringing.mp3" autoPlay loop></audio> : null
+          !callAccepted && show ? <audio src="../../../../audio/ringing.mp3" autoPlay loop></audio> : null
       }
       </>
     

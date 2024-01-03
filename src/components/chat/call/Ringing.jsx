@@ -6,7 +6,7 @@ export default function Ringing({call, setCall, answerCall, endCall }) {
     const [timer, setTimer] = useState(0);
     let interval;
     const handleTimer = () => {
-        setInterval(() => {
+       let interval = setInterval(() => {
             setTimer((prev) => prev + 1);
         }, (3000))
     }
@@ -14,8 +14,7 @@ export default function Ringing({call, setCall, answerCall, endCall }) {
         if(timer<5){
             handleTimer();
         }else{
-            setCall({...call, receivingCall: false });
-            
+            setCall({...call, receivingCall: false });         
         }
         return () => clearInterval(interval);
     },[timer])
@@ -39,7 +38,7 @@ export default function Ringing({call, setCall, answerCall, endCall }) {
       </div>
       {/* Call actions */}
       <ul className="flex items-center gap-x-2">
-        <li onClick={endCall}>
+        <li onClick={() => endCall()}>
             <button className="w-8 h-8 flex items-center justify-center rounded-full bg-red-500">
                 <CloseIcon className="fill-white w-5" />
             </button>

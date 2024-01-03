@@ -23,14 +23,14 @@ export default function ChatHeader({online, callUser}) {
           </div>
           {/*  right */}
           <ul className="flex items-center gap-x-2.5">
-            {1 == 1 ? (
+            {online ? (
               <li onClick={() => callUser()}>
                 <button className="btn">
                     <VideoCallIcon />
                   </button>
               </li>
             ): null}
-            {1 == 1 ? (
+            {online ? (
               <li>
                 <button className="btn">
                     <CallIcon />
