@@ -13,6 +13,7 @@ import SocketContext from "../../../context/sendContext.js";
   const { activeConversation} = useSelector((state) => state.chat);
   const values = {
     token: user.token,
+    isGroup: convo.isGroup ? convo._id : false,
     receiver_id: getConversationId(user, convo.users)
   }
   const openConversation = async () => {
@@ -33,14 +34,14 @@ import SocketContext from "../../../context/sendContext.js";
         <div className="flex items-center gap-x-3">
             {/* Conversation  user picture*/}
           <div className={`relative min-w-[50px] max-w-[50px] h-[50px] rounded-full overflow-hidden ${online ? 'online': ''} `}>
-            <img src={getConversationPicture(user, convo.users)} 
-            alt={getConversationName(user, convo.users)} className="w-full h-full object-cover" />
+            <img src={convo.isGroup ? convo.picture : getConversationPicture(user, convo.users)} 
+            alt={convo.isGroup ? convo.name : getConversationName(user, convo.users)} className="w-full h-full object-cover" />
           </div>
           {/* Conversation name and message */}
           <div className="w-full flex flex-col">
               {/* Conversation name */}
                 <h1 className="font-bold flex items-center gap-x-2">
-                  {getConversationName(user, convo.users)}
+                  {convo.isGroup ? convo.name : getConversationName(user, convo.users)}
                   </h1>
                 {/* Conversation Message */}
                 <div>
@@ -51,7 +52,7 @@ import SocketContext from "../../../context/sendContext.js";
                           <p className="text-green_1">Typing</p>
                           :
                           <p>
-                            {convo.latestMessage.message.length > 30 ? `${convo.latestMessage.message.substring(0, 20)}...` : convo.latestMessage.message}
+                            {convo?.latestMessage?.message?.length > 30 ? `${convo?.latestMessage?.message.substring(0, 20)}...` : convo?.latestMessage?.message}
                           </p>
 
                          }
@@ -64,7 +65,7 @@ import SocketContext from "../../../context/sendContext.js";
         {/*  Right */}
         <div className="flex flex-col gap-y-4 items-end text-xs">
             <span className="dark:text-dark_text_2">
-              {dateHandler(convo.latestMessage.createdAt)}
+              {dateHandler(convo?.latestMessage?.createdAt)}
             </span>
         </div>
       </div>

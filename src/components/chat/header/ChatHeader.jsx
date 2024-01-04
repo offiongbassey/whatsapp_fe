@@ -1,10 +1,14 @@
 import { useSelector } from "react-redux";
 import { CallIcon, DotsIcon, SearchLargeIcon, VideoCallIcon } from "../../../svg";
 import { capitalize } from "../../../utils/string";
+import { getConversationName, getConversationPicture } from "../../../utils/chat";
 
 export default function ChatHeader({online, callUser}) {
   const { activeConversation} = useSelector((state) => state.chat);
-  const { name, picture} = activeConversation;
+  const { user } = useSelector((state) => state.user);
+  const name = activeConversation.isGroup ? activeConversation.name :
+  getConversationName(user, activeConversation.users);
+
   return (
     <div className="h-[59px] dark:bg-dark_bg_2 flex items-center p16 select-none">
         {/* container */}
@@ -13,12 +17,14 @@ export default function ChatHeader({online, callUser}) {
           <div className="flex items-center gap-x-4">
             {/* Conversation image */}
             <button className="btn">
-              <img src={picture} alt={`${name} picture`} className="w-full h-full rounded-full object-cover" />
+              <img src={activeConversation.isGroup ? activeConversation.picture :
+              getConversationPicture(user, activeConversation.users)} alt={`${name} picture`} className="w-full h-full rounded-full object-cover" />
             </button>
             {/* Conversation name and online status */}
             <div className="flex flex-col">
               <h1 className="dark:text-white text-md font-bold">{name}</h1>
-              <span className="text-xs dark:text-dark_svg_2">{online ? 'online': ''}</span>
+              
+              <span className="text-xs dark:text-dark_svg_2">{!activeConversation.isGroup && online ? 'online': ''}</span>
             </div>
           </div>
           {/*  right */}

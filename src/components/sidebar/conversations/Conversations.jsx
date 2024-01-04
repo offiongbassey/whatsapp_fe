@@ -11,10 +11,10 @@ export default function Conversations({ onlineUsers, typing }) {
       <ul>
       {
         conversations && conversations
-        .filter((c) => c.latestMessage || c._id === activeConversation._id)
+        .filter((c) => c.latestMessage || c._id === activeConversation._id || c.isGroup === true)
         .map((convo) => {
           let check = checkOnlineStatus(onlineUsers, user, convo.users )
-       return <Conversation convo={convo} key={convo._id} online={check ? true : false }
+       return <Conversation convo={convo} key={convo._id} online={!convo.isGroup && check ? true : false }
           typing={typing}
        />
         } 

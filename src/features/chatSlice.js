@@ -33,8 +33,8 @@ export const openCreateCoversation = createAsyncThunk(
     "conversation/open_create",
     async (values, { rejectWithValue}) => {
         try {
-            const {token, receiver_id } = values;
-            const { data } = await axios.post(CONVERSATION_ENDPOINT, {receiver_id}, {
+            const {token, isGroup, receiver_id } = values;
+            const { data } = await axios.post(CONVERSATION_ENDPOINT, {receiver_id, isGroup}, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -81,7 +81,28 @@ export const sendMessage = createAsyncThunk(
         } catch (error) {
             return rejectWithValue(error.response.data.error.message);
         }
-})
+});
+
+export const createGroupConversation = createAsyncThunk(
+    "conversation/create_group",
+    async (values, { rejectWithValue }) => {
+        const { token, name, users } = values;
+        try {
+            const { data } = await axios.post(
+                `${CONVERSATION_ENDPOINT}/group`,
+                { name, users },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+            return data;
+        } catch (error) {
+            return rejectWithValue(error.response.data.error.message)
+        }
+    }
+)
 
 export const chatSlice = createSlice({
     name: "chat",
