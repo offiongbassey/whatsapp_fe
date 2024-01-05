@@ -8,8 +8,10 @@ function Contact({ contact, setSearchResults, socket}) {
 
   const values = {
     token: user.token,
+    isGroup: false,
     receiver_id: contact._id
   }
+
   const openConversation = async () => {
    let newConvo = await dispatch(openCreateCoversation(values));
    socket.emit("join conversation", newConvo.payload._id);

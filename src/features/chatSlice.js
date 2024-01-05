@@ -113,8 +113,10 @@ export const chatSlice = createSlice({
         },
         //update messages
         updateMessagesAndConversations: (state, action) => {
+            
             let convo = state.activeConversation;
             if(convo._id === action.payload.conversation._id){
+                
                 state.messages = [...state.messages, action.payload];
             }
              //update conversations
@@ -190,6 +192,22 @@ export const chatSlice = createSlice({
             state.conversations = newConvos;
         })
         .addCase(sendMessage.rejected, (state, action) => {
+            state.status = "failed";
+            state.error = action.payload;
+        })
+        .addCase(createGroupConversation.pending, (state, action) => {
+            state.status = "pending";
+        })
+        .addCase(createGroupConversation.fulfilled, (state, action) => {
+            state.status = "succeeded";
+            state.messages = [...state.messages, action.payload];
+            let conversation = {...action.payload.conversation,
+            latestMessage: action.payload };
+            let newConvos = [...state.conversations].filter((c) => c._id !== conversation._id);
+            newConvos.unshift(conversation);
+            state.conversations = newConvos;
+        })
+        .addCase(createGroupConversation.rejected, (state, action) => {
             state.status = "failed";
             state.error = action.payload;
         })

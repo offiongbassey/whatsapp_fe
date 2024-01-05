@@ -4,6 +4,10 @@ import { useSelector } from "react-redux";
 
 export default function Message({ message, me }) {
   const { user } = useSelector((state) => state.user);
+  const handleMessage = async (val) => {
+    console.log("clicked me", val);
+
+  }
   return (
     <div className={`w-full flex mt-2 sspace-x-3 max-w-xs ${ me ? "ml-auto justify-end" : ""}`}>
       {/* Message Container */}
@@ -18,8 +22,8 @@ export default function Message({ message, me }) {
       <div className={`relative h-full dark:text-dark_text_1 p-2 rounded-lg
       ${me ? "bg-green_3" : "dark:bg-dark_bg_2"}`}>
         {/* message */}
-        <p className="float-left h-full text-sm pb-4 pr-8">
-            {message.message}
+        <p onClick={() => handleMessage(message._id)} className="float-left h-full text-sm pb-4 pr-8">
+           {message.message}
         </p>
         {/* message date */}
         <span className="absolute right-1.5 bottom-1.5 text-xs text-dark_text_5 leading-none"
