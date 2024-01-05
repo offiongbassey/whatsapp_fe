@@ -12,6 +12,7 @@ export default function CreateGroup({ setShowCreateGroup }) {
     const dispatch = useDispatch();
     const { user } = useSelector((state) => state.user);
     const { status } = useSelector((state) => state.chat);
+    const [loading, setLoading] = useState(false);
     const [searchResults, setSearchResults] = useState([]);
     const [selectedUsers, setSelectedUsers] = useState([]);
     const handleSearch = async (e) => {
@@ -51,6 +52,7 @@ export default function CreateGroup({ setShowCreateGroup }) {
 
     const createGroupHandler = async () => {
         if(status !== "loading"){
+            setLoading(true);
             let users = [];
             selectedUsers.forEach((user) => {
                 users.push(user.value);
@@ -62,6 +64,7 @@ export default function CreateGroup({ setShowCreateGroup }) {
             };
             let newConvo = await dispatch(createGroupConversation(values));
             setShowCreateGroup(false);
+            setLoading(false);
         }
     }
 
@@ -84,13 +87,16 @@ export default function CreateGroup({ setShowCreateGroup }) {
             />
             {/* Create Group button */}
             <div className="absolute bottom-1/3 left-1/2 -translate-x-1/2">
-                <button className="btn bg-green_1 scale-150 hover:bg-green-500"
+                <button 
+                disabled={ loading ? true : false}
+                className="btn bg-green_1 scale-150 hover:bg-green-500"
                 onClick={() => createGroupHandler()}
                 >
                     {
-                        status === "loading" ?
+                        loading ?
                         <ClipLoader color="#E9EDEF" size={25} /> : 
-                        <ValidIcon  className="fill-white mt-2 h-full"/>
+                        <ValidIcon  className="fill-white mt-2 h-full"/> 
+                    
                     }
                 </button>
             </div>
