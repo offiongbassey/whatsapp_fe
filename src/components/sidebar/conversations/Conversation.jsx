@@ -6,8 +6,9 @@ import { openCreateCoversation } from "../../../features/chatSlice";
 import { getConversationId, getConversationName, getConversationPicture } from "../../../utils/chat.js";
 import { capitalize } from "../../../utils/string";
 import SocketContext from "../../../context/sendContext.js";
+import DangerIcon from "../../../svg/Danger.js";
 
- function Conversation({ convo, socket, online, typing }) {
+ function Conversation({ convo, socket, online, typing, deletedMessage }) {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
   const { activeConversation} = useSelector((state) => state.chat);
@@ -20,6 +21,7 @@ import SocketContext from "../../../context/sendContext.js";
     let newConvo = await dispatch(openCreateCoversation(values));
     socket.emit("join conversation", newConvo.payload._id)
   }
+
   return (
     <li 
     onClick={() => openConversation()}
@@ -38,7 +40,7 @@ import SocketContext from "../../../context/sendContext.js";
             alt={convo.isGroup ? convo.name : getConversationName(user, convo.users)} className="w-full h-full object-cover" />
           </div>
           {/* Conversation name and message */}
-          <div className="w-full flex flex-col">
+          <div className="w-full flex flex-col min-w-[240px]">
               {/* Conversation name */}
                 <h1 className="font-bold flex items-center gap-x-2">
                   {convo.isGroup ? convo.name : getConversationName(user, convo.users)}
@@ -51,9 +53,20 @@ import SocketContext from "../../../context/sendContext.js";
                           typing === convo._id ? 
                           <p className="text-green_1">Typing</p>
                           :
-                          <p>
-                            {convo?.latestMessage?.message?.length > 30 ? `${convo?.latestMessage?.message.substring(0, 20)}...` : convo?.latestMessage?.message}
+                          (<>
+                          { deletedMessage?._id === convo?.latestMessage?._id ? <DangerIcon className="float-left"  /> : convo?.latestMessage?.status === "deleted" && <DangerIcon className="float-left" />}
+                          <p className={`${deletedMessage?._id === convo?.latestMessage?._id ? "italic" : convo.latestMessage.status === "deleted" ? "italic" : ""}`}>
+                            {convo?.latestMessage?.message?.length > 30 && convo?.latestMessage?.status === "active" ? 
+                            `${convo?.latestMessage?.message.substring(0, 20)}...` 
+                            : deletedMessage?._id === convo?.latestMessage?._id && convo?.latestMessage?.sender?._id === user._id ? "You deleted this message."
+                            : deletedMessage?._id === convo?.latestMessage?._id && convo?.latestMessage?.sender?._id !== user._id ? "This message was deleted."
+                            : convo?.latestMessage?.status === "deleted" && convo?.latestMessage?.sender?._id === user._id ? "You deleted this message" 
+                            : convo?.latestMessage?.status === "deleted" && convo?.latestMessage?.sender?._id !== user._id ? "This message was deleted." 
+                            : convo?.latestMessage?.message
+                            }
                           </p>
+                          </>
+                          )
 
                          }
 

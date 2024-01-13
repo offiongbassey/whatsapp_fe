@@ -1,13 +1,27 @@
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import Message from "./Message";
 import { useEffect, useRef } from "react";
 import Typing from "./Typing";
 import FileMessage from "./files/FileMessage";
+import { removeMessage } from "../../../features/chatSlice";
+import SocketContext from "../../../context/sendContext";
 
-export default function ChatMessages({ typing }) {
+function ChatMessages({ socket, typing, deletedMessage, setDeletedMessage }) {
   const { messages, activeConversation } = useSelector((state) => state.chat );
   const { user } = useSelector((state) => state.user);
   const endRef = useRef();
+  const dispatch = useDispatch();
+
+const { token } = user;
+  const deleteMessage = async (message_id) => {
+    const values = {
+      token,
+      message_id
+    }
+    let del_message = await dispatch(removeMessage(values));
+    socket.emit("delete message", del_message.payload);
+    setDeletedMessage(del_message.payload)
+}
 
   useEffect(() => {
     endRef.current.scrollIntoView({behavior: "smooth"})
@@ -35,6 +49,8 @@ export default function ChatMessages({ typing }) {
               message={message}
               key={message._id}
               me={user._id === message.sender._id}
+              deleteMessage={deleteMessage} 
+              deletedMessage={deletedMessage}
               />
               )
               : null
@@ -43,7 +59,7 @@ export default function ChatMessages({ typing }) {
               {/* message texts */}
             {
               message. message.length > 0 ? 
-              <Message message={message} key={message._id} me={user._id === message.sender._id} />
+              <Message message={message} key={message._id} me={user._id === message.sender._id} deleteMessage={deleteMessage} deletedMessage={deletedMessage} />
               :
               null
             }
@@ -58,3 +74,11 @@ export default function ChatMessages({ typing }) {
     </div>
   )
 }
+
+const ChatMessagesWithContext = (props) => (
+  <SocketContext.Consumer>
+    {(socket) => <ChatMessages {...props} socket={socket} />}
+  </SocketContext.Consumer>
+);
+
+export default ChatMessagesWithContext;

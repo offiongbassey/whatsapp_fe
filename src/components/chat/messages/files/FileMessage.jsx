@@ -2,10 +2,29 @@ import moment from "moment";
 import TriangleIcon from "../../../../svg/triangle";
 import FileImageVideo from "./FileImageVideo";
 import FileOthers from "./FileOthers";
+import { useState } from "react";
+import { ArrowIcon, DangerIcon } from "../../../../svg";
+import MessageMenu from "../properties/MessageMenu";
+import DeleteModal from "../../../modal/DeleteModal";
 
 
-export default function FileMessage({ fileMessage, message, me}) {
+export default function FileMessage({ fileMessage, message, me, deleteMessage, deletedMessage}) {
     const { file, type} = fileMessage;
+    const [messageArrow, setMessageArrow] = useState(false);
+    const [showMessageMenu, setShowMessageMenu ] = useState(false);
+    const [openModal, setOpenModal] = useState(false);
+
+  const deleteHandler =  async() => {
+    setOpenModal(true);
+    setShowMessageMenu(false);
+    
+  }
+
+  const deleteMessageHandler = async(id) => {
+    deleteMessage(id);
+    setOpenModal(false);
+  }
+
   return (
     <div className={`w-full flex mt-2 sspace-x-3 max-w-xs ${ me ? "ml-auto justify-end" : ""}`}>
       {/* Message Container */}
@@ -20,19 +39,57 @@ export default function FileMessage({ fileMessage, message, me}) {
       )
       }
        
-      <div className={`relative h-full dark:text-dark_text_1 rounded-lg
-      ${me ? "border-[3px] border-green_3 " : "dark:bg-dark_bg_2"}
-      ${me && file.public_id.split('.')[1] === "png" ? "bg-white" : "bg-green_3 p-1"}
+      <div 
+      onMouseOver={() => setMessageArrow(true)}
+      onMouseOut={() => setMessageArrow(false)}
+      className={`relative flex h-full ${deletedMessage._id === message._id ?  "dark:text-dark_text_2 italic" : message.status ==="active" ? "dark:text-dark_text_1"  : "dark:text-dark_text_2 italic" }  rounded-lg
+      ${deletedMessage._id === message._id ? "" : message.status === "deleted" ? "" : me ? "border-[3px] border-green_3 " : "dark:bg-dark_bg_2"}
+      ${!me&& deletedMessage._id === message._id ?  "dark:bg-dark_bg_2 p-3"  :
+        !me && message.status === "deleted" ? "dark:bg-dark_bg_2 p-3" :
+        me && deletedMessage._id === message._id ?  "bg-[#133e35] p-3"  :
+        me && message.status === "deleted" ? "bg-[#133e35] p-3" :
+         me && file.public_id.split('.')[1] === "png" ? "bg-white" :
+          "bg-green_3 p-1"}
       `}>
         {/* message */} 
+        {/* if message has been deleted */}
+        {deletedMessage._id === message._id ? <DangerIcon /> : message.status === "deleted" ? <DangerIcon /> : null }
+
         <p className={`h-full text-sm ${type !== "IMAGE" && type !== "VIDEO" ? "pb-5" : ""}`}>
+
+          {messageArrow && message.status !== "deleted" && deletedMessage?._id !== message._id ? (
+              <button 
+              onClick={() => setShowMessageMenu((prev) => !prev)}
+              className="absolute top-0 right-0 btn">
+                  <span className="rotate-90 scale-150 m-1">
+                    <ArrowIcon className="fill-[#d9e3e1]"/>
+                  </span>
+              </button>
+           ) :  null
+           } 
+
            {
+            me && message.status === "deleted" ? "You deleted this message" : 
+            !me && message.status === "deleted" ? "This message was deleted" : 
+            !me && deletedMessage._id === message._id ? "This message was deleted" : 
+            me && deletedMessage._id === message._id ? "You deleted this message" :
             type === "IMAGE" || type === "VIDEO" ? 
             <FileImageVideo url={file.secure_url} type={type}/> 
             : 
             <FileOthers file={file} type={type} />
+            
            }
         </p>
+        {/* menu button */}
+        
+      {/* message menu */}
+      {showMessageMenu && message.status !== "deleted" && deletedMessage?._id !== message._id ? 
+        (<MessageMenu message={message} deleteMessage={deleteMessage}  me={me}     deleteHandler={deleteHandler}/>) : null }
+
+      {/* modal */}
+      <DeleteModal open={openModal} onClose={() => setOpenModal(false)} message={message} setOpenModal={setOpenModal} deleteMessageHandler={deleteMessageHandler} />
+       
+
         {/* message date */}
         <span className="absolute right-1.5 bottom-1.5 text-xs text-dark_text_5 leading-none"
         >{moment(message.createdAt).format("HH:mm:a")}

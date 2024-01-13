@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import SimplePeer from "simple-peer";
 import { Sidebar } from "../components/sidebar";
 import { useDispatch, useSelector } from "react-redux";
-import { getConversations, updateMessagesAndConversations } from "../features/chatSlice";
+import { getConversations, updateMessagesAndConversations, updateDeletedMessage } from "../features/chatSlice";
 import { WhatsappHome } from "../components/chat/Welcome";
 import { ChatContainer } from "../components/chat";
 import SocketContext from "../context/sendContext";
@@ -22,6 +22,9 @@ function Home({ socket }) {
   const { user } = useSelector((state) => state.user);
   const { activeConversation } = useSelector((state) => state.chat);
   const [onlineUsers, setOnlineUsers] = useState([]);
+
+  //deleted messages
+  const [deletedMessage, setDeletedMessage] = useState([]);
   //call
   const [call, setCall] = useState(callData);
   const [stream, setStream] = useState();
@@ -156,9 +159,13 @@ const enableMedia = () => {
     socket.on("typing", (conversation) => setTyping(conversation));
     socket.on("stop typing", (message) => setTyping(false));
 
-  },[]);
+    //listening when a message is deleted
+    socket.on("deletedMessage", (msg) => {
+      setDeletedMessage(msg);
+      dispatch(updateDeletedMessage(msg));
+    });
 
-  console.log("Call ended ", callEnded);
+  },[]);
 
   return (
     <>
@@ -166,10 +173,10 @@ const enableMedia = () => {
         {/* Container */}
         <div className="container h-screen flex py-[19px]">
           {/*  sidebar */}
-          <Sidebar onlineUsers={onlineUsers} typing={typing}/>
+          <Sidebar onlineUsers={onlineUsers} typing={typing} deletedMessage={deletedMessage} />
           {
             activeConversation._id ?
-          <ChatContainer onlineUsers={onlineUsers} typing={typing}  callUser={callUser}/>
+          <ChatContainer onlineUsers={onlineUsers} typing={typing}  callUser={callUser} deletedMessage={deletedMessage} setDeletedMessage={setDeletedMessage} />
             : 
             <WhatsappHome />
           }

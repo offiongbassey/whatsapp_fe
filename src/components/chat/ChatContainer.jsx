@@ -7,7 +7,7 @@ import ChatActions from "./actions/ChatActions";
 import { checkOnlineStatus } from "../../utils/chat";
 import FilesPreview from "../chat/preview/files/FilesPreview";
 
-export default function ChatContainer({ onlineUsers, typing, callUser }) {
+export default function ChatContainer({ onlineUsers, typing, callUser, deletedMessage, setDeletedMessage }) {
     const dispatch = useDispatch();
     const { activeConversation, files } = useSelector((state) => state.chat);
     const { user } = useSelector((state) => state.user);
@@ -34,7 +34,7 @@ export default function ChatContainer({ onlineUsers, typing, callUser }) {
             : 
             <>
             {/* Chat Messages */}
-            <ChatMessages typing={typing}/>
+            <ChatMessages typing={typing} deletedMessage={deletedMessage} setDeletedMessage={setDeletedMessage} />
             {/* Chat Actions */}
             <ChatActions />
            </>

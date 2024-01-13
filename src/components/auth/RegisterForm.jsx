@@ -37,7 +37,6 @@ export default function RegisterForm() {
     }else{
       res = await  dispatch(registerUser({ ...data, picture: ""}));
     }
-  //  console.log(`New ${res.payload}`);
     if(res.payload.user) navigate("/")
 
   }

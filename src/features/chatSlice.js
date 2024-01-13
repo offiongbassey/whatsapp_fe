@@ -99,10 +99,30 @@ export const createGroupConversation = createAsyncThunk(
             );
             return data;
         } catch (error) {
-            return rejectWithValue(error.response.data.error.message)
+            return rejectWithValue(error.response.data.error.message);
         }
     }
-)
+);
+
+
+export const removeMessage = createAsyncThunk(
+    "message/delete",
+    async(values, {rejectWithValue}) => {
+        const { token, message_id } = values;
+        try {
+            const { data } = await axios.patch(`${MESSAGE_ENDPOINT}/delete/${message_id}`, {}, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+            );
+            
+            return data;
+        } catch (error) {
+            return rejectWithValue(error.response.data.error.message);
+        }
+    }
+);
 
 export const chatSlice = createSlice({
     name: "chat",
@@ -130,6 +150,19 @@ export const chatSlice = createSlice({
             newConvos.unshift(conversation);
             state.conversations = newConvos;
         },
+        updateDeletedMessage: (state, action) => {
+            state.messages.forEach((msg) => {
+                if(msg._id === action.payload._id){
+                    msg.status = "deleted";
+                }
+            });
+            state.conversations.forEach((convo) => {
+                if(convo?.latestMessage?._id === action.payload._id){
+                    convo.latestMessage.status = "deleted";
+                }
+            })
+
+        },  
         addFiles: (state, action) => {
             state.files = [...state.files, action.payload];
         },
@@ -211,9 +244,29 @@ export const chatSlice = createSlice({
             state.status = "failed";
             state.error = action.payload;
         })
+        .addCase(removeMessage.pending, (state, action) => {
+            state.status = "pending";
+        })
+        .addCase(removeMessage.fulfilled, (state, action) => {
+            state.status = "succeeded";
+            state.messages.forEach((msg) => {
+                if(msg._id === action.payload._id) {
+                    msg.status = "deleted";
+                }
+            });
+            state.conversations.forEach((convo) => {
+                if(convo?.latestMessage?._id === action.payload._id){
+                    convo.latestMessage.status = "deleted";
+                }
+            })
+        })
+        .addCase(removeMessage.rejected, (state, action) => {
+            state.status = "failed";
+            state.error = action.payload;   
+        })
     }
 });
 
-export const { setActiveConversation, updateMessagesAndConversations, addFiles, clearFiles, removeFileFromFiles } = chatSlice.actions;
+export const { setActiveConversation, updateMessagesAndConversations, updateDeletedMessage, addFiles, clearFiles, removeFileFromFiles } = chatSlice.actions;
 
 export default chatSlice.reducer;
