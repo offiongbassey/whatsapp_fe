@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import SimplePeer from "simple-peer";
 import { Sidebar } from "../components/sidebar";
 import { useDispatch, useSelector } from "react-redux";
-import { getConversations, updateMessagesAndConversations, updateDeletedMessage } from "../features/chatSlice";
+import { getConversations, updateMessagesAndConversations, updateDeletedMessage, updateEditedMessage } from "../features/chatSlice";
 import { WhatsappHome } from "../components/chat/Welcome";
 import { ChatContainer } from "../components/chat";
 import SocketContext from "../context/sendContext";
@@ -165,6 +165,10 @@ const enableMedia = () => {
       dispatch(updateDeletedMessage(msg));
     });
 
+    //listening when a message is edited
+    socket.on("editMessage", (msg) => {
+      dispatch(updateEditedMessage(msg));
+    })
   },[]);
 
   return (

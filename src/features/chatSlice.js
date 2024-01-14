@@ -116,13 +116,33 @@ export const removeMessage = createAsyncThunk(
                 },
             }
             );
-            
+             
             return data;
         } catch (error) {
             return rejectWithValue(error.response.data.error.message);
         }
     }
 );
+
+
+export const editMessage = createAsyncThunk(
+    "message/edit",
+    async(values, { rejectWithValue }) => {
+        try {
+            const { token, message, message_id } = values;
+            const { data } = await axios.put(`${MESSAGE_ENDPOINT}/${message_id}`, {
+                message
+            }, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            return data;
+        } catch (error) {
+            return rejectWithValue(error.response.data.error.message)
+        }
+    }
+)
 
 export const chatSlice = createSlice({
     name: "chat",
@@ -162,7 +182,15 @@ export const chatSlice = createSlice({
                 }
             })
 
-        },  
+        }, 
+        updateEditedMessage: (state, action) => {
+            state.messages.forEach((msg) => {
+                if(msg._id === action.payload._id){
+                    msg.message = action.payload.message;
+                    msg.editedStatus = true;
+                }
+            })
+        }, 
         addFiles: (state, action) => {
             state.files = [...state.files, action.payload];
         },
@@ -264,9 +292,25 @@ export const chatSlice = createSlice({
             state.status = "failed";
             state.error = action.payload;   
         })
+        .addCase(editMessage.pending, (state, action) => {
+            state.status = "pending";
+        })
+        .addCase(editMessage.fulfilled, (state, action) => {
+            state.status = "succeeded";
+            state.messages.forEach((msg) => {
+                if(msg._id === action.payload._id){
+                    msg.message = action.payload.message;
+                    msg.editedStatus = true;
+                }
+            })
+        })
+        .addCase(editMessage.rejected, (state, action) => {
+            state.status  = "failed";
+            state.error = action.payload;
+        })
     }
 });
 
-export const { setActiveConversation, updateMessagesAndConversations, updateDeletedMessage, addFiles, clearFiles, removeFileFromFiles } = chatSlice.actions;
+export const { setActiveConversation, updateMessagesAndConversations, updateDeletedMessage, addFiles, clearFiles, removeFileFromFiles, updateEditedMessage } = chatSlice.actions;
 
 export default chatSlice.reducer;

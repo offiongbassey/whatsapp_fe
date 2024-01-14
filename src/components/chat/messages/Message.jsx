@@ -5,17 +5,23 @@ import { ArrowIcon, DangerIcon } from "../../../svg";
 import { useState } from "react";
 import MessageMenu from "./properties/MessageMenu";
 import DeleteModal from "../../modal/DeleteModal";
+import EditModal from "../../modal/EditModal";
 
 export default function Message({ message, me, deleteMessage, deletedMessage }) {
   const { user } = useSelector((state) => state.user);
   const [openModal, setOpenModal] = useState(false);
+  const [openEditModal, setOpenEditModal] = useState(false);
   const [messageArrow, setMessageArrow] = useState(false);
   const [showMessageMenu, setShowMessageMenu ] = useState(false);
+
+  const editHandler = async () => {
+    setOpenEditModal(true);
+    setShowMessageMenu(false);
+  }
 
   const deleteHandler =  async() => {
     setOpenModal(true);
     setShowMessageMenu(false);
-    
   }
 
   const deleteMessageHandler = async(id) => {
@@ -67,16 +73,19 @@ export default function Message({ message, me, deleteMessage, deletedMessage }) 
         message={message} 
         me={me} 
         deleteHandler={deleteHandler}
-        
+        editHandler={editHandler}
         />) : null }
         
 
         {/* modal */}
         <DeleteModal open={openModal} onClose={() => setOpenModal(false)} message={message} setOpenModal={setOpenModal} deleteMessageHandler={deleteMessageHandler} />
        
+       {/* edit modal */}
+        <EditModal open={openEditModal} onClose={() => setOpenEditModal(false)} message={message} setOpenEditModal={setOpenEditModal} />
+
         {/* message date */}
         <span className="absolute right-1.5 bottom-1.5 text-xs text-dark_text_5 leading-none"
-        >{moment(message.createdAt).format("HH:mm:a")}
+        > {message?.editedStatus ? "Edited" : ""} {moment(message.createdAt).format("HH:mm:a")}
         </span>
         {/* Triangle */}
         <span>
