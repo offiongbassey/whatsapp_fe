@@ -27,7 +27,6 @@ const { token } = user;
     endRef.current.scrollIntoView({behavior: "smooth"})
   },[messages]);
 
-
   return (
     <div className="mb-[60px] bg-[url('https://res.cloudinary.com/dmhcnhtng/image/upload/v1677358270/Untitled-1_copy_rpx8yb.jpg')]
     bg-cover bg-no-repeat 

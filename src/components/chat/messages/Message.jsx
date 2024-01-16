@@ -6,6 +6,7 @@ import { useState } from "react";
 import MessageMenu from "./properties/MessageMenu";
 import DeleteModal from "../../modal/DeleteModal";
 import EditModal from "../../modal/EditModal";
+import { ReactionEmoji } from "../actions";
 
 export default function Message({ message, me, deleteMessage, deletedMessage }) {
   const { user } = useSelector((state) => state.user);
@@ -13,7 +14,12 @@ export default function Message({ message, me, deleteMessage, deletedMessage }) 
   const [openEditModal, setOpenEditModal] = useState(false);
   const [messageArrow, setMessageArrow] = useState(false);
   const [showMessageMenu, setShowMessageMenu ] = useState(false);
+  const [showEmoji, setShowEmoji] = useState(false);
 
+  const handleEmoji = async () => {
+    setShowEmoji(true);
+    setShowMessageMenu(false);
+  }
   const editHandler = async () => {
     setOpenEditModal(true);
     setShowMessageMenu(false);
@@ -34,7 +40,7 @@ export default function Message({ message, me, deleteMessage, deletedMessage }) 
     className={`w-full flex mt-2 space-x-3 max-w-xs ${ me ? "ml-auto justify-end" : ""}`}>
       {/* Message Container */}
       
-      <div className="relative">
+      <div className={`relative ${message.reaction.length > 0 ? "mb-4": ""}`}>
         {/* sender user message */}
         { !me && message.conversation.isGroup &&  (
           <div className="absolute top-1 left-[-37px]">
@@ -56,6 +62,7 @@ export default function Message({ message, me, deleteMessage, deletedMessage }) 
          me && deletedMessage._id === message._id ? "You deleted this message" :
          message.message}
         </p>
+        
         {messageArrow && message.status !== "deleted" && deletedMessage?._id !== message._id ? (
             <button 
             onClick={() => setShowMessageMenu((prev) => !prev)}
@@ -74,6 +81,7 @@ export default function Message({ message, me, deleteMessage, deletedMessage }) 
         me={me} 
         deleteHandler={deleteHandler}
         editHandler={editHandler}
+        handleEmoji={handleEmoji}
         />) : null }
         
 
@@ -82,7 +90,10 @@ export default function Message({ message, me, deleteMessage, deletedMessage }) 
        
        {/* edit modal */}
         <EditModal open={openEditModal} onClose={() => setOpenEditModal(false)} message={message} setOpenEditModal={setOpenEditModal} />
-
+        
+        {/* ReactionEmoji */}
+          <ReactionEmoji showEmoji={showEmoji} onClose={() => setShowEmoji(false)} setShowEmoji={setShowEmoji} message={message} />
+          
         {/* message date */}
         <span className="absolute right-1.5 bottom-1.5 text-xs text-dark_text_5 leading-none"
         > {message?.editedStatus ? "Edited" : ""} {moment(message.createdAt).format("HH:mm:a")}
@@ -94,7 +105,12 @@ export default function Message({ message, me, deleteMessage, deletedMessage }) 
             <TriangleIcon className="dark:fill-dark_bg_2 rotate-[60deg] absolute top-[-5px] -left-1.5 " /> : null
         }
         </span>
+        {message.reaction.map((item) => (
+        
+        <span className={`absolute ${me ? "right-0" : ""}  bottom-[-20px] dark:bg-dark_bg_5 px-2 scale-100 rounded-xl`}>{item.emoji}</span>
+        ))} 
       </div>
+     
     </div>
     </div>
   )

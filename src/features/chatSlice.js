@@ -139,7 +139,26 @@ export const editMessage = createAsyncThunk(
             });
             return data;
         } catch (error) {
-            return rejectWithValue(error.response.data.error.message)
+            return rejectWithValue(error.response.data.error.message);
+        }
+    }
+);
+
+export const submitReactionEmoji = createAsyncThunk(
+    "message/emoji",
+    async(values, { rejectWithValue }) => {
+        try {
+            const { token, emoji, message_id } = values;
+            const { data } = await axios.put(`${MESSAGE_ENDPOINT}/reaction/${message_id}`, {
+                emoji
+            }, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return data;
+        } catch (error) {
+            return rejectWithValue(error.response.data.error.message);
         }
     }
 )
@@ -191,6 +210,14 @@ export const chatSlice = createSlice({
                 }
             })
         }, 
+        updateReactedMessage: (state, action) => {
+            state.messages.forEach((msg) => {
+                if(msg._id === action.payload._id){
+                    msg.reaction = action.payload.reaction;
+                }
+            })
+            console.log("Testpro ---", state.messages)
+        },
         addFiles: (state, action) => {
             state.files = [...state.files, action.payload];
         },
@@ -308,9 +335,24 @@ export const chatSlice = createSlice({
             state.status  = "failed";
             state.error = action.payload;
         })
+        .addCase(submitReactionEmoji.pending, (state, action) => {
+            state.status = "pending";
+        })
+        .addCase(submitReactionEmoji.fulfilled, (state, action) => {
+            state.status = "succeeded";
+            state.messages.forEach((msg) => {
+                if(msg._id === action.payload._id){
+                    msg.reaction = action.payload.reaction;
+                }
+            })
+           
+        })
+        .addCase(submitReactionEmoji.rejected, (state, action) => {
+            state.status = "failed";
+        })
     }
 });
 
-export const { setActiveConversation, updateMessagesAndConversations, updateDeletedMessage, addFiles, clearFiles, removeFileFromFiles, updateEditedMessage } = chatSlice.actions;
+export const { setActiveConversation, updateMessagesAndConversations, updateDeletedMessage, addFiles, clearFiles, removeFileFromFiles, updateEditedMessage, updateReactedMessage } = chatSlice.actions;
 
 export default chatSlice.reducer;
