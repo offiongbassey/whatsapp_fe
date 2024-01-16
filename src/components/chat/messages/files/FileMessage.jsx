@@ -6,13 +6,24 @@ import { useState } from "react";
 import { ArrowIcon, DangerIcon } from "../../../../svg";
 import MessageMenu from "../properties/MessageMenu";
 import DeleteModal from "../../../modal/DeleteModal";
+import { ReactionEmoji } from "../../actions";
+import ReactionPreview from "../../../modal/ReactionPreview";
+import { useSelector } from "react-redux";
 
 
 export default function FileMessage({ fileMessage, message, me, deleteMessage, deletedMessage}) {
+    const { user } = useSelector((state) => state.user);
     const { file, type} = fileMessage;
     const [messageArrow, setMessageArrow] = useState(false);
     const [showMessageMenu, setShowMessageMenu ] = useState(false);
     const [openModal, setOpenModal] = useState(false);
+    const [showEmoji, setShowEmoji] = useState(false);
+    const [openReactionPreview, setOpenReactionPreview] = useState(false);
+
+  const handleEmoji = async () => {
+      setShowEmoji(true);
+      setShowMessageMenu(false);
+  }
 
   const deleteHandler =  async() => {
     setOpenModal(true);
@@ -29,7 +40,7 @@ export default function FileMessage({ fileMessage, message, me, deleteMessage, d
     <div className={`w-full flex mt-2 sspace-x-3 max-w-xs ${ me ? "ml-auto justify-end" : ""}`}>
       {/* Message Container */}
 
-      <div className="relative">
+      <div className={`relative ${message.reaction.length > 0 ? "mb-4": ""}`}>
       {/* sender user message */}
       {
         !me && message.conversation.isGroup && (
@@ -84,11 +95,24 @@ export default function FileMessage({ fileMessage, message, me, deleteMessage, d
         
       {/* message menu */}
       {showMessageMenu && message.status !== "deleted" && deletedMessage?._id !== message._id ? 
-        (<MessageMenu message={message} deleteMessage={deleteMessage}  me={me}     deleteHandler={deleteHandler}/>) : null }
+        (<MessageMenu 
+          open={showMessageMenu}
+          onClose={() => setShowMessageMenu(false)}
+          message={message} 
+          deleteMessage={deleteMessage}  
+          me={me}     
+          deleteHandler={deleteHandler}
+          handleEmoji={handleEmoji}
+          />) : null }
 
       {/* modal */}
       <DeleteModal open={openModal} onClose={() => setOpenModal(false)} message={message} setOpenModal={setOpenModal} deleteMessageHandler={deleteMessageHandler} />
        
+          {/* ReactionEmoji */}
+          <ReactionEmoji showEmoji={showEmoji} onClose={() => setShowEmoji(false)} setShowEmoji={setShowEmoji} message={message} />
+        
+        {/* ReactionPreview */}
+          <ReactionPreview open={openReactionPreview} onClose={() => setOpenReactionPreview(false)} setOpenReactionPreview={setOpenReactionPreview} message={message} _id={user._id} me={me} />
 
         {/* message date */}
         <span className="absolute right-1.5 bottom-1.5 text-xs text-dark_text_5 leading-none"
@@ -100,6 +124,11 @@ export default function FileMessage({ fileMessage, message, me, deleteMessage, d
             !me ? 
             <TriangleIcon className="dark:fill-dark_bg_2 rotate-[60deg] absolute top-[-5px] -left-1.5 " /> : null
         }
+        </span>
+        <span onClick={() => setOpenReactionPreview(true)} className={`absolute ${me ? "right-0" : ""} cursor-pointer  bottom-[-20px] dark:bg-dark_bg_5 px-2 scale-100 rounded-xl`}>
+        {message.reaction.map((item) => (
+        item.emoji
+        ))} 
         </span>
       </div>
     </div>

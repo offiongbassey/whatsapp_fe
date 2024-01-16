@@ -11,7 +11,7 @@ export default function MessageMenu({ open, onClose, message, me, deleteHandler,
     `}>
     <div 
     onClick={(e) => e.stopPropagation()}
-    className="absolute mt-10 right-1 z-50 dark:bg-dark_bg_2 dark:text-dark_text_1 shadow-md w-48">
+    className={`absolute mt-10 ${ me ? "right-24" : "left-42" } z-50 dark:bg-dark_bg_2 dark:text-dark_text_1 shadow-md w-48`}>
       <ul>
         <li className="py-3 pl-5 cursor-pointer hover:bg-dark_bg_3">
           <span>Reply</span>
