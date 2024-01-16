@@ -7,10 +7,12 @@ import MessageMenu from "./properties/MessageMenu";
 import DeleteModal from "../../modal/DeleteModal";
 import EditModal from "../../modal/EditModal";
 import { ReactionEmoji } from "../actions";
+import ReactionPreview from "../../modal/ReactionPreview";
 
 export default function Message({ message, me, deleteMessage, deletedMessage }) {
   const { user } = useSelector((state) => state.user);
   const [openModal, setOpenModal] = useState(false);
+  const [openReactionPreview, setOpenReactionPreview] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
   const [messageArrow, setMessageArrow] = useState(false);
   const [showMessageMenu, setShowMessageMenu ] = useState(false);
@@ -77,6 +79,8 @@ export default function Message({ message, me, deleteMessage, deletedMessage }) 
         {/* message menu */}
         {showMessageMenu && message.status !== "deleted" && deletedMessage?._id !== message._id ? 
         (<MessageMenu 
+          open={showMessageMenu}
+          onClose={() => setShowMessageMenu(false)}
         message={message} 
         me={me} 
         deleteHandler={deleteHandler}
@@ -93,7 +97,10 @@ export default function Message({ message, me, deleteMessage, deletedMessage }) 
         
         {/* ReactionEmoji */}
           <ReactionEmoji showEmoji={showEmoji} onClose={() => setShowEmoji(false)} setShowEmoji={setShowEmoji} message={message} />
-          
+        
+        {/* ReactionPreview */}
+          <ReactionPreview open={openReactionPreview} onClose={() => setOpenReactionPreview(false)} setOpenReactionPreview={setOpenReactionPreview} message={message} _id={user._id} me={me} />
+
         {/* message date */}
         <span className="absolute right-1.5 bottom-1.5 text-xs text-dark_text_5 leading-none"
         > {message?.editedStatus ? "Edited" : ""} {moment(message.createdAt).format("HH:mm:a")}
@@ -105,10 +112,11 @@ export default function Message({ message, me, deleteMessage, deletedMessage }) 
             <TriangleIcon className="dark:fill-dark_bg_2 rotate-[60deg] absolute top-[-5px] -left-1.5 " /> : null
         }
         </span>
+        <span onClick={() => setOpenReactionPreview(true)} className={`absolute ${me ? "right-0" : ""} cursor-pointer  bottom-[-20px] dark:bg-dark_bg_5 px-2 scale-100 rounded-xl`}>
         {message.reaction.map((item) => (
-        
-        <span className={`absolute ${me ? "right-0" : ""}  bottom-[-20px] dark:bg-dark_bg_5 px-2 scale-100 rounded-xl`}>{item.emoji}</span>
+        item.emoji
         ))} 
+        </span>
       </div>
      
     </div>
