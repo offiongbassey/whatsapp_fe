@@ -40,7 +40,7 @@ export default function FileMessage({ fileMessage, message, me, deleteMessage, d
     <div className={`w-full flex mt-2 sspace-x-3 max-w-xs ${ me ? "ml-auto justify-end" : ""}`}>
       {/* Message Container */}
 
-      <div className={`relative ${message.reaction.length > 0 ? "mb-4": ""}`}>
+      <div className={`relative max-sm:ml-6 ${message.reaction.length > 0 ? "mb-4": ""}`}>
       {/* sender user message */}
       {
         !me && message.conversation.isGroup && (

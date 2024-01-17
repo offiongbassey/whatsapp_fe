@@ -1,21 +1,30 @@
 import { useSelector } from "react-redux";
-import { CallIcon, DotsIcon, SearchLargeIcon } from "../../../svg";
+import { ArrowIcon, CallIcon, DotsIcon, SearchLargeIcon } from "../../../svg";
 import { capitalize } from "../../../utils/string";
 import { getConversationName, getConversationPicture } from "../../../utils/chat";
 import { IoVideocamOutline } from "react-icons/io5";
 
-export default function ChatHeader({online, callUser}) {
+export default function ChatHeader({online, callUser, setMobileToggle}) {
   const { activeConversation} = useSelector((state) => state.chat);
   const { user } = useSelector((state) => state.user);
   const name = activeConversation.isGroup ? activeConversation.name :
   getConversationName(user, activeConversation.users);
-
+  // dark:bg-dark_bg_2
   return (
-    <div className="h-[59px] dark:bg-dark_bg_2 flex items-center p16 select-none">
+    <div className="h-[68px] dark:bg-dark_bg_2  py-6 flex items-center p16 select-none">
         {/* container */}
         <div className="w-full flex items-center justify-between">
           {/*  left */}
           <div className="flex items-center gap-x-4">
+            {/* mobile toggle */}
+            <button 
+            onClick={() => setMobileToggle(false)}
+            className="btn">
+              <span className="rotate-180 scale-150 m-1">
+                <ArrowIcon className="dark:fill-white" />
+              </span>
+            </button>
+
             {/* Conversation image */}
             <button className="btn">
               <img src={activeConversation.isGroup ? activeConversation.picture :

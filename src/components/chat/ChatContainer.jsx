@@ -7,7 +7,7 @@ import ChatActions from "./actions/ChatActions";
 import { checkOnlineStatus } from "../../utils/chat";
 import FilesPreview from "../chat/preview/files/FilesPreview";
 
-export default function ChatContainer({ onlineUsers, typing, callUser, deletedMessage, setDeletedMessage }) {
+export default function ChatContainer({ onlineUsers, typing, callUser, deletedMessage, setDeletedMessage, setMobileToggle, mobileToggle}) {
     const dispatch = useDispatch();
     const { activeConversation, files } = useSelector((state) => state.chat);
     const { user } = useSelector((state) => state.user);
@@ -32,11 +32,11 @@ export default function ChatContainer({ onlineUsers, typing, callUser, deletedMe
     },[activeConversation]);
 
   return (
-    <div className="relative w-full h-full border-l dark:border-l-dark_border_2 select-none overflow-hidden">
+    <div className={`md:relative absolute ${!mobileToggle ? "invisible sm:visible" : ""} w-[90%] border-l dark:border-l-dark_border_2 select-none overflow-hidden`}>
         {/* Container */}
         <div>
             {/* chat Header */}
-            <ChatHeader online={checkOnlineStatus(onlineUsers, user, activeConversation.users)} callUser={callUser} />
+            <ChatHeader online={checkOnlineStatus(onlineUsers, user, activeConversation.users)} callUser={callUser} setMobileToggle={setMobileToggle} />
          {
             files.length > 0 ? 
             <FilesPreview />

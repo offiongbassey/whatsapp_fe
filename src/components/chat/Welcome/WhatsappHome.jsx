@@ -2,7 +2,7 @@ import { Logo } from "../../../svg";
 
 export default function WhatsapaHome() {
   return (
-    <div className="h-full w-full dark:bg-dark_bg_4 select-none border-l dark:border-l-dark_border_2 border-b-[6px] border-b-green_2">
+    <div className="h-full w-full invisible sm:visible dark:bg-dark_bg_4 select-none border-l dark:border-l-dark_border_2 border-b-[6px] border-b-green_2">
         {/* Container */}
         <div className="-mt-1.5 w-full h-full flex flex-col gap-y-8 items-center justify-center">
             <span>

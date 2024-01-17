@@ -4,10 +4,10 @@ import  { Notifications }  from "./notifications";
 import {Search, SearchResults} from "./search";
 import Conversations from "./conversations/Conversations";
 
-export default function Sidebar({ onlineUsers, typing, deletedMessage }) {
+export default function Sidebar({ onlineUsers, typing, deletedMessage, setMobileToggle, mobileToggle }) {
   const [ searchResults, setSearchResults ] = useState([]);
   return (
-    <div className="flex0030 max-w-[30%] h-full select-none">
+    <div className={`flex0030 ${mobileToggle ? "invisible sm:visible" : "w-full"}   h-full select-none`}>
       {/*sidebar header */}
       <SidebarHeader />
       {/* Notifications */}
@@ -23,7 +23,7 @@ export default function Sidebar({ onlineUsers, typing, deletedMessage }) {
         </>
         : <>
           {/* Conversations */}
-          <Conversations onlineUsers={onlineUsers} typing={typing} deletedMessage={deletedMessage} />
+          <Conversations onlineUsers={onlineUsers} typing={typing} deletedMessage={deletedMessage} setMobileToggle={setMobileToggle} />
         </>
       }
     

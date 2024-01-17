@@ -69,11 +69,7 @@ const sendReplyHandler = async (e) => {
         setTextAreaDetector(1)
     }
 }
-
-console.log("here is it ", textareaDetector, currentReplyMessage);
-
   return (
-    
     <form 
     onSubmit={(e) => {
         if(!openReplyMessage){
@@ -81,7 +77,6 @@ console.log("here is it ", textareaDetector, currentReplyMessage);
         }else{
             sendReplyHandler(e)
         }
-        
     }}
     // ${currentReplyMessage === "" ? "min-h-[60px]" :  "min-h-[115px]"}
     className={`dark:bg-dark_bg_2 

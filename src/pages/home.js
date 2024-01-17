@@ -23,6 +23,9 @@ function Home({ socket }) {
   const { activeConversation } = useSelector((state) => state.chat);
   const [onlineUsers, setOnlineUsers] = useState([]);
 
+  //mobile toggle
+  const [mobileToggle, setMobileToggle ] = useState(false);
+
   //deleted messages
   const [deletedMessage, setDeletedMessage] = useState([]);
   //call
@@ -182,14 +185,23 @@ const enableMedia = () => {
 
   return (
     <>
-    <div className="h-screen dark:bg-dark_bg_1 flex items-center justify-center overflow-hidden">
+    <div className="dark:bg-dark_bg_1 flex items-center justify-center overflow-hidden">
         {/* Container */}
         <div className="container h-screen flex py-[19px]">
           {/*  sidebar */}
-          <Sidebar onlineUsers={onlineUsers} typing={typing} deletedMessage={deletedMessage} />
+          <Sidebar onlineUsers={onlineUsers} typing={typing} deletedMessage={deletedMessage} setMobileToggle={setMobileToggle} mobileToggle={mobileToggle} />
           {
-            activeConversation._id ?
-          <ChatContainer onlineUsers={onlineUsers} typing={typing}  callUser={callUser} deletedMessage={deletedMessage} setDeletedMessage={setDeletedMessage} />
+            activeConversation._id ? 
+          
+          <ChatContainer 
+          onlineUsers={onlineUsers} t
+          yping={typing}  
+          callUser={callUser} 
+          deletedMessage={deletedMessage} 
+          setDeletedMessage={setDeletedMessage}
+          setMobileToggle={setMobileToggle}
+          mobileToggle={mobileToggle} />
+          
             : 
             <WhatsappHome />
           }

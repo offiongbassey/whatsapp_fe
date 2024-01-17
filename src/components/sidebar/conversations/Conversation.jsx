@@ -8,7 +8,7 @@ import { capitalize } from "../../../utils/string";
 import SocketContext from "../../../context/sendContext.js";
 import DangerIcon from "../../../svg/Danger.js";
 
- function Conversation({ convo, socket, online, typing, deletedMessage }) {
+ function Conversation({ convo, socket, online, typing, deletedMessage, setMobileToggle }) {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
   const { activeConversation} = useSelector((state) => state.chat);
@@ -22,9 +22,13 @@ import DangerIcon from "../../../svg/Danger.js";
     socket.emit("join conversation", newConvo.payload._id)
   }
 
+
   return (
     <li 
-    onClick={() => openConversation()}
+    onClick={() => {
+      openConversation()
+      setMobileToggle(true)
+    }}
     className={`list-none h-[72px] w-full dark:bg-dark_bg_1 hover:${
       convo._id !== activeConversation._id ? "dark:bg-dark_bg_2" : ""
       } cursor-pointer dark:text-dark_text_1 px-[10px] ${
@@ -55,7 +59,7 @@ import DangerIcon from "../../../svg/Danger.js";
                           :
                           (<>
                           { deletedMessage?._id === convo?.latestMessage?._id ? <DangerIcon className="float-left"  /> : convo?.latestMessage?.status === "deleted" && <DangerIcon className="float-left" />}
-                          <p className={`${deletedMessage?._id === convo?.latestMessage?._id ? "italic" : convo.latestMessage.status === "deleted" ? "italic" : ""}`}>
+                          <p className={`${deletedMessage?._id === convo?.latestMessage?._id ? "italic" : convo?.latestMessage?.status === "deleted" ? "italic" : ""}`}>
                             {convo?.latestMessage?.message?.length > 30 && convo?.latestMessage?.status === "active" ? 
                             `${convo?.latestMessage?.message.substring(0, 20)}...` 
                             : deletedMessage?._id === convo?.latestMessage?._id && convo?.latestMessage?.sender?._id === user._id ? "You deleted this message."

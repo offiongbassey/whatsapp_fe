@@ -43,7 +43,7 @@ export default function Message({ message, me, deleteMessage, deletedMessage, se
     className={`w-full flex mt-2 space-x-3  max-w-xs ${ me ? "ml-auto justify-end" : ""}`}>
       {/* Message Container */}
       
-      <div className={`relative ${message.reaction.length > 0 ? "mb-4": ""}`}>
+      <div className={`relative max-sm:ml-6 ${message.reaction.length > 0 ? "mb-4": ""}`}>
         {/* sender user message */}
         { !me && message.conversation.isGroup &&  (
           <div className="absolute top-1 left-[-37px]">
@@ -58,7 +58,7 @@ export default function Message({ message, me, deleteMessage, deletedMessage, se
       ${message.is_reply ? "p-1" : "p-2" } rounded-lg 
       ${me && deletedMessage._id === message._id ? "bg-[#133e35]" : me && message.status === "active" ? "bg-green_3" : me && message.status === "deleted" ? "bg-[#133e35]" :  "dark:bg-dark_bg_2"}`}>
         {/* message */}
-        {deletedMessage._id === message._id ? <DangerIcon /> : message.status === "deleted" ? <DangerIcon /> : null }
+        
         {/*  displaying reply */}
         {message.is_reply ? (
           <div className={` ${message.message_replied.message.length > 120 ? "w-[300px]" : "w-full"} mb-3 h-20 dark:bg-dark_bg_3 rounded-lg flex overflow-hidden`}>
@@ -69,15 +69,16 @@ export default function Message({ message, me, deleteMessage, deletedMessage, se
               </div>
           </div>
         ): null }
-
-
-        <p className="float-left text-sm pb-4 pr-8">
+        <div className="flex">
+        {deletedMessage._id === message._id ? <DangerIcon /> : message.status === "deleted" ? <DangerIcon /> : null }
+        <p className="float-left break-all text-sm pb-4 pr-8">
          {me && message.status === "deleted" ? "You deleted this message" : 
          !me && message.status === "deleted" ? "This message was deleted" : 
          !me && deletedMessage._id === message._id ? "This message was deleted" : 
          me && deletedMessage._id === message._id ? "You deleted this message" :
          message.message}
         </p>
+        </div>
         
         {messageArrow && message.status !== "deleted" && deletedMessage?._id !== message._id ? (
             <button 

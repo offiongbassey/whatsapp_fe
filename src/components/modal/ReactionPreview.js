@@ -1,8 +1,5 @@
 export default function ReactionPreview({ open, onClose, setOpenReactionPreview, message, _id, me}) {
-    // console.log("here we go again --------", message)
-    message.reaction.forEach((react) => {
-        console.log("in addy", react?.user?.name);
-    })
+ 
   return (
     <div 
     onClick={onClose}
