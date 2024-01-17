@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import SimplePeer from "simple-peer";
 import { Sidebar } from "../components/sidebar";
 import { useDispatch, useSelector } from "react-redux";
-import { getConversations, updateMessagesAndConversations, updateDeletedMessage, updateEditedMessage, updateReactedMessage } from "../features/chatSlice";
+import { getConversations, updateMessagesAndConversations, updateDeletedMessage, updateEditedMessage, updateReactedMessage, addRepliedMessage } from "../features/chatSlice";
 import { WhatsappHome } from "../components/chat/Welcome";
 import { ChatContainer } from "../components/chat";
 import SocketContext from "../context/sendContext";
@@ -173,6 +173,10 @@ const enableMedia = () => {
     //listening for a reaction
     socket.on("receiveReaction", (msg) => {
       dispatch(updateReactedMessage(msg));
+    })
+    //listening when a reply is sent
+    socket.on("replyMessage", (msg) => {
+      dispatch(addRepliedMessage(msg));
     })
   },[]);
 

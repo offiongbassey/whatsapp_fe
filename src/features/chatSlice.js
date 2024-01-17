@@ -144,6 +144,27 @@ export const editMessage = createAsyncThunk(
     }
 );
 
+export const replyMessage = createAsyncThunk(
+    "message/reply",
+    async(values, { rejectWithValue }) => {
+        try {
+            const { token, message, convo_id, files, reply_id } = values;
+            const { data } = await axios.patch(`${MESSAGE_ENDPOINT}/reply/${reply_id}`, {
+                message,
+                convo_id,
+                files
+            }, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return data;
+        } catch (error) {
+            return rejectWithValue(error.response.data.error.message);
+        }
+    }
+)
+
 export const submitReactionEmoji = createAsyncThunk(
     "message/emoji",
     async(values, { rejectWithValue }) => {
@@ -175,13 +196,28 @@ export const chatSlice = createSlice({
             
             let convo = state.activeConversation;
             if(convo._id === action.payload.conversation._id){
-                
                 state.messages = [...state.messages, action.payload];
             }
              //update conversations
             let conversation = {
             ...action.payload.conversation,
             latestMessage: action.payload,
+            };
+            let newConvos = [...state.conversations].filter(
+                (c) => c._id !== conversation._id
+            );
+            newConvos.unshift(conversation);
+            state.conversations = newConvos;
+        },
+        addRepliedMessage: (state, action) => {
+            let convo = state.activeConversation;
+            if(convo._id === action.payload.conversation._id){
+                state.messages = [...state.messages, action.payload];
+            }
+            //update conversations
+            let conversation = {
+                ...action.payload.conversation,
+                latestMessage: action.payload,
             };
             let newConvos = [...state.conversations].filter(
                 (c) => c._id !== conversation._id
@@ -350,9 +386,25 @@ export const chatSlice = createSlice({
         .addCase(submitReactionEmoji.rejected, (state, action) => {
             state.status = "failed";
         })
+        .addCase(replyMessage.pending, (state, action) => {
+            state.status = "pending";
+        })
+        .addCase(replyMessage.fulfilled, (state, action) => {
+            state.status = "succeeded";
+            state.messages = [...state.messages, action.payload];
+            let conversation = {...action.payload.conversation, 
+            latestMessage: action.payload }
+            let newConvos = [...state.conversations].filter((c) => c._id !== conversation._id);
+            newConvos.unshift(conversation);
+            state.conversations = newConvos;
+        })
+        .addCase(replyMessage.rejected, (state, action) => {
+            state.status = "failed";
+            state.error = action.payload;
+        })
     }
 });
 
-export const { setActiveConversation, updateMessagesAndConversations, updateDeletedMessage, addFiles, clearFiles, removeFileFromFiles, updateEditedMessage, updateReactedMessage } = chatSlice.actions;
+export const { setActiveConversation, updateMessagesAndConversations, updateDeletedMessage, addFiles, clearFiles, removeFileFromFiles, updateEditedMessage, updateReactedMessage, addRepliedMessage } = chatSlice.actions;
 
 export default chatSlice.reducer;

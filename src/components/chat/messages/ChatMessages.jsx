@@ -6,7 +6,7 @@ import FileMessage from "./files/FileMessage";
 import { removeMessage } from "../../../features/chatSlice";
 import SocketContext from "../../../context/sendContext";
 
-function ChatMessages({ socket, typing, deletedMessage, setDeletedMessage }) {
+function ChatMessages({ socket, typing, deletedMessage, setDeletedMessage, setOpenReplyMessage, handleReplyToggle }) {
   const { messages, activeConversation } = useSelector((state) => state.chat );
   const { user } = useSelector((state) => state.user);
   const endRef = useRef();
@@ -58,7 +58,14 @@ const { token } = user;
               {/* message texts */}
             {
               message. message.length > 0 ? 
-              <Message message={message} key={message._id} me={user._id === message.sender._id} deleteMessage={deleteMessage} deletedMessage={deletedMessage} />
+              <Message 
+              message={message} 
+              key={message._id} 
+              me={user._id === message.sender._id} 
+              deleteMessage={deleteMessage} 
+              deletedMessage={deletedMessage}
+              setOpenReplyMessage={setOpenReplyMessage} 
+              handleReplyToggle={handleReplyToggle} />
               :
               null
             }

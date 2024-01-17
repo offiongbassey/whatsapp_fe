@@ -32,6 +32,7 @@ import VideoDialIcon from "./VideoDial";
 import DialIcon from "./Dial";
 import VideoCallIcon from "./VideoCall";
 import DangerIcon from "./Danger";
+import VideoCallIcon2 from "./VideoCallI2";
 export {
   CommunityIcon,
   StoryIcon,
@@ -66,6 +67,7 @@ export {
   VideoDialIcon,
   DialIcon,
   VideoCallIcon,
-  DangerIcon
+  DangerIcon,
+  VideoCallIcon2
 
 };

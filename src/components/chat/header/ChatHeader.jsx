@@ -1,7 +1,8 @@
 import { useSelector } from "react-redux";
-import { CallIcon, DotsIcon, SearchLargeIcon, VideoCallIcon } from "../../../svg";
+import { CallIcon, DotsIcon, SearchLargeIcon } from "../../../svg";
 import { capitalize } from "../../../utils/string";
 import { getConversationName, getConversationPicture } from "../../../utils/chat";
+import { IoVideocamOutline } from "react-icons/io5";
 
 export default function ChatHeader({online, callUser}) {
   const { activeConversation} = useSelector((state) => state.chat);
@@ -32,20 +33,25 @@ export default function ChatHeader({online, callUser}) {
             {online ? (
               <li onClick={() => callUser()}>
                 <button className="btn">
-                    <VideoCallIcon />
+                    {/* <VideoCallIcon2 className="dark:fill-dark_svg_1 scale-200" /> */}
+                    <span className=" scale-150">
+                     <IoVideocamOutline className="dark:text-blue-500" />
+                     </span>
                   </button>
               </li>
             ): null}
             {online ? (
               <li>
                 <button className="btn">
-                    <CallIcon />
+                  <span className=" scale-75">
+                    <CallIcon className="dark:fill-blue-500" />
+                    </span>
                 </button>
               </li>
             ) : null}
             <li>
               <button className="btn">
-                <SearchLargeIcon className="dark:fill-dark_svg_1" />
+                <SearchLargeIcon className="dark:fill-dark_svg_1 " />
               </button>
             </li>
             <li>

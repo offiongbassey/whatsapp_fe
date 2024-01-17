@@ -9,7 +9,7 @@ import EditModal from "../../modal/EditModal";
 import { ReactionEmoji } from "../actions";
 import ReactionPreview from "../../modal/ReactionPreview";
 
-export default function Message({ message, me, deleteMessage, deletedMessage }) {
+export default function Message({ message, me, deleteMessage, deletedMessage, setOpenReplyMessage, handleReplyToggle}) {
   const { user } = useSelector((state) => state.user);
   const [openModal, setOpenModal] = useState(false);
   const [openReactionPreview, setOpenReactionPreview] = useState(false);
@@ -17,6 +17,7 @@ export default function Message({ message, me, deleteMessage, deletedMessage }) 
   const [messageArrow, setMessageArrow] = useState(false);
   const [showMessageMenu, setShowMessageMenu ] = useState(false);
   const [showEmoji, setShowEmoji] = useState(false);
+  
 
   const handleEmoji = async () => {
     setShowEmoji(true);
@@ -39,7 +40,7 @@ export default function Message({ message, me, deleteMessage, deletedMessage }) 
 
   return (
     <div 
-    className={`w-full flex mt-2 space-x-3 max-w-xs ${ me ? "ml-auto justify-end" : ""}`}>
+    className={`w-full flex mt-2 space-x-3  max-w-xs ${ me ? "ml-auto justify-end" : ""}`}>
       {/* Message Container */}
       
       <div className={`relative ${message.reaction.length > 0 ? "mb-4": ""}`}>
@@ -53,11 +54,24 @@ export default function Message({ message, me, deleteMessage, deletedMessage }) 
       <div
       onMouseOver={() => setMessageArrow(true)}
       onMouseOut={() => setMessageArrow(false)}
-      className={`relative flex h-full  ${deletedMessage._id === message._id ?  "dark:text-dark_text_2 italic" : message.status ==="active" ? "dark:text-dark_text_1"  : "dark:text-dark_text_2 italic" } p-2 rounded-lg 
+      className={`relative flex flex-col h-full   ${deletedMessage._id === message._id ?  "dark:text-dark_text_2 italic" : message.status ==="active" ? "dark:text-dark_text_1"  : "dark:text-dark_text_2 italic" } 
+      ${message.is_reply ? "p-1" : "p-2" } rounded-lg 
       ${me && deletedMessage._id === message._id ? "bg-[#133e35]" : me && message.status === "active" ? "bg-green_3" : me && message.status === "deleted" ? "bg-[#133e35]" :  "dark:bg-dark_bg_2"}`}>
         {/* message */}
         {deletedMessage._id === message._id ? <DangerIcon /> : message.status === "deleted" ? <DangerIcon /> : null }
-        <p className="float-left h-full text-sm pb-4 pr-8">
+        {/*  displaying reply */}
+        {message.is_reply ? (
+          <div className={` ${message.message_replied.message.length > 120 ? "w-[300px]" : "w-full"} mb-3 h-20 dark:bg-dark_bg_3 rounded-lg flex overflow-hidden`}>
+            <span className={`${message.sender._id === user._id ? "dark:bg-blue-400" : "dark:bg-green-400"} w-1`}></span>
+              <div className="absolute m-3">
+                  <p className={`${message.sender._id === user._id ? "dark:text-blue-400" : "dark:text-green-400"} text-xs font-semibold`}>{message.sender._id === user._id ? "You" : message.sender.name }</p>
+                  <p className="dark:text-dark_text_2 text-xs">{message.message_replied.message.length > 100 ? `${message.message_replied.message.substring(0, 100)}...` : message.message_replied.message }</p>
+              </div>
+          </div>
+        ): null }
+
+
+        <p className="float-left text-sm pb-4 pr-8">
          {me && message.status === "deleted" ? "You deleted this message" : 
          !me && message.status === "deleted" ? "This message was deleted" : 
          !me && deletedMessage._id === message._id ? "This message was deleted" : 
@@ -79,13 +93,15 @@ export default function Message({ message, me, deleteMessage, deletedMessage }) 
         {/* message menu */}
         {showMessageMenu && message.status !== "deleted" && deletedMessage?._id !== message._id ? 
         (<MessageMenu 
-          open={showMessageMenu}
-          onClose={() => setShowMessageMenu(false)}
+        open={showMessageMenu}
+        onClose={() => setShowMessageMenu(false)}
         message={message} 
         me={me} 
         deleteHandler={deleteHandler}
         editHandler={editHandler}
         handleEmoji={handleEmoji}
+        setOpenReplyMessage={setOpenReplyMessage}
+        handleReplyToggle={handleReplyToggle}
         />) : null }
         
 
