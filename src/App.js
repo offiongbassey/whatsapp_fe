@@ -4,16 +4,27 @@ import { io } from "socket.io-client";
 import Home from "./pages/home";
 import Login from "./pages/login";
 import Register from "./pages/register";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import SocketContext from "./context/sendContext";
+import { getLoggedInStatus, logout, setLogin } from "./features/userSlice";
 
 //socket io
 const socket = io(process.env.REACT_APP_API_ENDPOINT.split("/api/v1")[0]);
 
 function App() {
+  const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
   const { token } = user;
+
+
+  // useEffect(() => {
+  //   async function loginStatus(){
+  //     const status = await getLoggedInStatus(token);
+  //     dispatch(setLogin(status));
+  //   }loginStatus();
+  // }, [dispatch]);
+
   return (
     <div className="dark">
       <SocketContext.Provider value={socket} >
