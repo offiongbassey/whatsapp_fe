@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const CONVERSATION_ENDPOINT = `${process.env.REACT_APP_API_ENDPOINT}/conversation`;
 const MESSAGE_ENDPOINT = `${process.env.REACT_APP_API_ENDPOINT}/message`;
@@ -26,7 +27,16 @@ export const getConversations = createAsyncThunk(
       console.log("Getting convo -------> ", data);
       return data;
     } catch (error) {
-      return rejectWithValue(error.response.data.error.message);
+      if(typeof(error.response.data.message) === 'string'){
+        toast(error.response.data.message)
+      }else if(Array.isArray(error.response.data.message)) {
+        error.response.data.message.forEach((err) => {
+          toast.error(err.msg);
+        })
+      }else{
+        toast.error("An unexpected error occured");
+      }
+      return rejectWithValue("");
     }
   }
 );
@@ -46,8 +56,17 @@ export const openCreateCoversation = createAsyncThunk(
         }
       );
       return data;
-    } catch (error) {
-      return rejectWithValue(error.response.data.error.message);
+    }  catch (error) {
+      if(typeof(error.response.data.message) === 'string'){
+        toast(error.response.data.message)
+      }else if(Array.isArray(error.response.data.message)) {
+        error.response.data.message.forEach((err) => {
+          toast.error(err.msg);
+        })
+      }else{
+        toast.error("An unexpected error occured");
+      }
+      return rejectWithValue("");
     }
   }
 );
@@ -64,7 +83,16 @@ export const getConversationMessages = createAsyncThunk(
       });
       return data;
     } catch (error) {
-      return rejectWithValue(error.response.data.error.message);
+      if(typeof(error.response.data.message) === 'string'){
+        toast(error.response.data.message)
+      }else if(Array.isArray(error.response.data.message)) {
+        error.response.data.message.forEach((err) => {
+          toast.error(err.msg);
+        })
+      }else{
+        toast.error("An unexpected error occured");
+      }
+      return rejectWithValue("");
     }
   }
 );
@@ -89,7 +117,16 @@ export const sendMessage = createAsyncThunk(
       );
       return data;
     } catch (error) {
-      return rejectWithValue(error.response.data.error.message);
+      if(typeof(error.response.data.message) === 'string'){
+        toast(error.response.data.message)
+      }else if(Array.isArray(error.response.data.message)) {
+        error.response.data.message.forEach((err) => {
+          toast.error(err.msg);
+        })
+      }else{
+        toast.error("An unexpected error occured");
+      }
+      return rejectWithValue("");
     }
   }
 );
@@ -110,7 +147,16 @@ export const createGroupConversation = createAsyncThunk(
       );
       return data;
     } catch (error) {
-      return rejectWithValue(error.response.data.error.message);
+      if(typeof(error.response.data.message) === 'string'){
+        toast(error.response.data.message)
+      }else if(Array.isArray(error.response.data.message)) {
+        error.response.data.message.forEach((err) => {
+          toast.error(err.msg);
+        })
+      }else{
+        toast.error("An unexpected error occured");
+      }
+      return rejectWithValue("");
     }
   }
 );
@@ -155,7 +201,16 @@ export const editMessage = createAsyncThunk(
       );
       return data;
     } catch (error) {
-      return rejectWithValue(error.response.data.error.message);
+      if(typeof(error.response.data.message) === 'string'){
+        toast(error.response.data.message)
+      }else if(Array.isArray(error.response.data.message)) {
+        error.response.data.message.forEach((err) => {
+          toast.error(err.msg);
+        })
+      }else{
+        toast.error("An unexpected error occured");
+      }
+      return rejectWithValue("");
     }
   }
 );
@@ -180,7 +235,16 @@ export const replyMessage = createAsyncThunk(
       );
       return data;
     } catch (error) {
-      return rejectWithValue(error.response.data.error.message);
+      if(typeof(error.response.data.message) === 'string'){
+        toast(error.response.data.message)
+      }else if(Array.isArray(error.response.data.message)) {
+        error.response.data.message.forEach((err) => {
+          toast.error(err.msg);
+        })
+      }else{
+        toast.error("An unexpected error occured");
+      }
+      return rejectWithValue("");
     }
   }
 );
@@ -203,7 +267,16 @@ export const submitReactionEmoji = createAsyncThunk(
       );
       return data;
     } catch (error) {
-      return rejectWithValue(error.response.data.error.message);
+      if(typeof(error.response.data.message) === 'string'){
+        toast(error.response.data.message)
+      }else if(Array.isArray(error.response.data.message)) {
+        error.response.data.message.forEach((err) => {
+          toast.error(err.msg);
+        })
+      }else{
+        toast.error("An unexpected error occured");
+      }
+      return rejectWithValue("");
     }
   }
 );
@@ -301,7 +374,7 @@ export const chatSlice = createSlice({
       })
       .addCase(getConversations.rejected, (state, action) => {
         state.status = "failed";
-        state.error = action.payload.data;
+        state.error = action.payload;
       })
       .addCase(openCreateCoversation.pending, (state, action) => {
         state.status = "loading";
@@ -313,7 +386,7 @@ export const chatSlice = createSlice({
       })
       .addCase(openCreateCoversation.rejected, (state, action) => {
         state.status = "failed";
-        state.error = action.payload.data;
+        state.error = action.payload;
       })
       .addCase(getConversationMessages.pending, (state, action) => {
         state.status = "loading";
@@ -324,7 +397,7 @@ export const chatSlice = createSlice({
       })
       .addCase(getConversationMessages.rejected, (state, action) => {
         state.status = "failed";
-        state.error = action.payload.data;
+        state.error = action.payload;
       })
       .addCase(sendMessage.pending, (state, action) => {
         state.status = "pending";
@@ -344,7 +417,7 @@ export const chatSlice = createSlice({
       })
       .addCase(sendMessage.rejected, (state, action) => {
         state.status = "failed";
-        state.error = action.payload.data;
+        state.error = action.payload;
       })
       .addCase(createGroupConversation.pending, (state, action) => {
         state.status = "pending";
@@ -364,7 +437,7 @@ export const chatSlice = createSlice({
       })
       .addCase(createGroupConversation.rejected, (state, action) => {
         state.status = "failed";
-        state.error = action.payload.data;
+        state.error = action.payload;
       })
       .addCase(removeMessage.pending, (state, action) => {
         state.status = "pending";
@@ -384,7 +457,7 @@ export const chatSlice = createSlice({
       })
       .addCase(removeMessage.rejected, (state, action) => {
         state.status = "failed";
-        state.error = action.payload.data;
+        state.error = action.payload;
       })
       .addCase(editMessage.pending, (state, action) => {
         state.status = "pending";
@@ -400,7 +473,7 @@ export const chatSlice = createSlice({
       })
       .addCase(editMessage.rejected, (state, action) => {
         state.status = "failed";
-        state.error = action.payload.data;
+        state.error = action.payload;
       })
       .addCase(submitReactionEmoji.pending, (state, action) => {
         state.status = "pending";
@@ -434,7 +507,7 @@ export const chatSlice = createSlice({
       })
       .addCase(replyMessage.rejected, (state, action) => {
         state.status = "failed";
-        state.error = action.payload.data;
+        state.error = action.payload;
       });
   },
 });

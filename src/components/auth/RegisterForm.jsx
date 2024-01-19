@@ -9,6 +9,7 @@ import { registerUser } from "../../features/userSlice.js";
 import { useState } from "react";
 import Picture from "./Picture.jsx";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const cloud_name = process.env.REACT_APP_CLOUD_NAME;
 const cloud_secret = process.env.REACT_APP_CLOUD_SECRET;
@@ -39,7 +40,8 @@ export default function RegisterForm() {
     } else {
       res = await dispatch(registerUser({ ...data, picture: "" }));
     }
-    if (res.payload.user) navigate("/");
+   
+    if (res?.payload?.data?.user) navigate("/");
   };
 
   const uploadImage = async () => {

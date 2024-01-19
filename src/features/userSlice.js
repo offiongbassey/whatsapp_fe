@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const AUTH_ENDPOINT = `${process.env.REACT_APP_API_ENDPOINT}/auth`;
 
@@ -26,7 +27,16 @@ export const registerUser = createAsyncThunk(
       });
       return data;
     } catch (error) {
-      return rejectWithValue(error.response.data.error.message);
+      if(typeof(error.response.data.message) === 'string'){
+        toast(error.response.data.message)
+      }else if(Array.isArray(error.response.data.message)) {
+        error.response.data.message.forEach((err) => {
+          toast.error(err.msg);
+        })
+      }else{
+        toast.error("An unexpected error occured");
+      }
+      return rejectWithValue("");
     }
   }
 );
@@ -40,7 +50,16 @@ export const loginUser = createAsyncThunk(
       });
       return data;
     } catch (error) {
-      return rejectWithValue(error.response.data.error.message);
+      if(typeof(error.response.data.message) === 'string'){
+        toast(error.response.data.message)
+      }else if(Array.isArray(error.response.data.message)) {
+        error.response.data.message.forEach((err) => {
+          toast.error(err.msg);
+        })
+      }else{
+        toast.error("An unexpected error occured");
+      }
+      return rejectWithValue("");
     }
   }
 );

@@ -14,7 +14,7 @@ function Contact({ contact, setSearchResults, socket }) {
 
   const openConversation = async () => {
     let newConvo = await dispatch(openCreateCoversation(values));
-    if(newConvo.payload.success === true) {
+    if(newConvo.payload.data.success === true) {
       socket.emit("join conversation", newConvo.payload.data._id);
     } 
     

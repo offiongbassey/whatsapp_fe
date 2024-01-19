@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { ClipLoader } from "react-spinners";
 import { createGroupConversation } from "../../../../features/chatSlice";
+import { toast } from "react-toastify";
 
 export default function CreateGroup({ setShowCreateGroup }) {
   const [name, setName] = useState("");
@@ -64,7 +65,10 @@ export default function CreateGroup({ setShowCreateGroup }) {
         token: user.token,
       };
       let newConvo = await dispatch(createGroupConversation(values));
+      if(newConvo?.payload?.success === true) {
       setShowCreateGroup(false);
+      toast.success("Group Created.");
+      }
       setLoading(false);
     }
   };
