@@ -33,7 +33,6 @@ export default function RegisterForm() {
         {/* Heading */}
         <div className="text-center dark:text-dark_text_1">
           <h2 className="mt-6 text-3xl font-bold">Welcome Back</h2>
-          <p className="mt-2 text-sm">Sign In</p>
         </div>
 
         {/*form */}
@@ -70,11 +69,11 @@ export default function RegisterForm() {
             )}
           </button>
           {/* Sign in link  */}
-          <p className="flex flex-col items-center justify-center mt-10 text-center text-md dark:text-dark_text_1">
-            <span className="">do not have an account ?</span>
+          <p className="relative items-center justify-center mt-10 text-center text-md dark:text-dark_text_1">
+            <span className="">Don't have an account ?</span>
             <Link
               to="/register"
-              className="hover:underline cursor-pointer transition ease-in duration-300"
+              className="hover:underline px-2 cursor-pointer transition ease-in duration-300"
             >
               Sign Up
             </Link>

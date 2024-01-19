@@ -55,6 +55,7 @@ export default function ChatContainer({
           )}
           callUser={callUser}
           setMobileToggle={setMobileToggle}
+          mobileToggle={mobileToggle}
         />
         {files.length > 0 ? (
           <FilesPreview />

@@ -26,7 +26,7 @@ function EditModal({ socket, open, onClose, message, setOpenEditModal }) {
     if (newMessage !== "") {
       setLoading(true);
       let editMsg = await dispatch(editMessage(value));
-      if(editMsg.payload.success === true) {
+      if(editMsg?.payload?.success === true) {
         socket.emit("edit message", editMsg.payload.data);
       } 
       setOpenEditModal(false);

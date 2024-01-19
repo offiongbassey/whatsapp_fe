@@ -3,11 +3,15 @@ import { ChatIcon, CommunityIcon, DotsIcon, StoryIcon } from "../../../svg";
 import { useState } from "react";
 import Menu from "./Menu";
 import CreateGroup from "./createGroup/CreateGroup";
+import ProfileMenu from "./ProfileMenu";
 
 export default function SidebarHeader() {
   const { user } = useSelector((state) => state.user);
   const [showMenu, setShowMenu] = useState(false);
   const [showCreateGroup, setShowCreateGroup] = useState(false);
+  const [showProfile, setShowProfile] = useState(false);
+
+  console.log("here we go", showProfile)
 
   return (
     <>
@@ -16,13 +20,21 @@ export default function SidebarHeader() {
         {/* Container */}
         <div className="w-full flex items-center justify-between">
           {/* user image */}
-          <button className="btn">
+          <button 
+          onClick={() => setShowProfile((prev) => !prev)}
+          className="btn">
             <img
               src={user.picture}
               alt={user.name}
               className="w-full h-full rounded-full object-cover"
             />
+            
           </button>
+          {
+              showProfile ? (
+                <ProfileMenu setShowProfile={setShowProfile} user={user} />
+              ): null
+            }
           {/* user icons */}
           <ul className="flex items-center gap-x-2.5 ">
             <li>
@@ -47,9 +59,11 @@ export default function SidebarHeader() {
               <button className={`btn ${showMenu ? "bg-dark_hover_1" : ""}`}>
                 <DotsIcon className="dark:fill-dark_svg_1" />
               </button>
+              {/* create group Menu */}
               {showMenu ? (
                 <Menu setShowCreateGroup={setShowCreateGroup} />
               ) : null}
+
             </li>
           </ul>
         </div>

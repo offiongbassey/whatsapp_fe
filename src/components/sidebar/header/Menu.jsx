@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux";
 import { logout } from "../../../features/userSlice";
+import { destroyActiveConversation } from "../../../features/chatSlice";
 
 export default function Menu({ setShowCreateGroup }) {
   const dispatch = useDispatch();
@@ -22,7 +23,10 @@ export default function Menu({ setShowCreateGroup }) {
           <span>Settings</span>
         </li>
         <li
-          onClick={() => dispatch(logout())}
+          onClick={() =>  {
+            dispatch(logout());
+            dispatch(destroyActiveConversation());
+          }}
           className="py-3 pl-5 cursor-pointer hover:bg-dark_bg_3"
         >
           <span>Logout</span>

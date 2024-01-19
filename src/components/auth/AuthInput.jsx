@@ -5,7 +5,7 @@ export default function AuthInput({ name, type, placeholder, register, error }) 
         {placeholder}
       </label>
       <input
-        className="w-full bg-dark_bg_3 text-base py-2 px-4 rounded-lg outline-none"
+        className="w-full bg-dark_bg_3 text-base py-2 px-4 h-12 rounded-lg outline-none focus:outline-none hover:bg-dark_bg_3"
         type={type}
         placeholder={placeholder}
         {...register(name)}

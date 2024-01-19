@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { openCreateCoversation } from "../../../features/chatSlice";
 import SocketContext from "../../../context/sendContext";
 
-function Contact({ contact, setSearchResults, socket }) {
+function Contact({ contact, setSearchResults, socket, setMobileToggle }) {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
 
@@ -14,7 +14,7 @@ function Contact({ contact, setSearchResults, socket }) {
 
   const openConversation = async () => {
     let newConvo = await dispatch(openCreateCoversation(values));
-    if(newConvo.payload.data.success === true) {
+    if(newConvo?.payload?.data.success === true) {
       socket.emit("join conversation", newConvo.payload.data._id);
     } 
     
@@ -22,7 +22,10 @@ function Contact({ contact, setSearchResults, socket }) {
   };
   return (
     <li
-      onClick={() => openConversation()}
+      onClick={() => {
+        openConversation()
+        setMobileToggle(true);
+      }}
       className="list-none h-[72px] hover:dark:bg-dark_bg_2 cursor-pointer dark:text-dark_text_1 px-[10px]"
     >
       {/* Container */}

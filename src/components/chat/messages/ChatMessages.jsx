@@ -26,7 +26,7 @@ function ChatMessages({
       message_id,
     };
     let del_message = await dispatch(removeMessage(values));
-    if(del_message.payload.success === true) {
+    if(del_message?.payload?.success === true) {
       socket.emit("delete message", del_message.payload.data);
     } 
     

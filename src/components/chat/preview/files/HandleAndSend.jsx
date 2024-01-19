@@ -31,7 +31,7 @@ function HandleAndSend({ activeIndex, setActiveIndex, message, socket }) {
       files: upload_files.length > 0 ? upload_files : [],
     };
     let newMsg = await dispatch(sendMessage(values));
-    if(newMsg.payload.success === true) {
+    if(newMsg?.payload?.success === true) {
       socket.emit("send message", newMsg.payload.data);
     } 
     

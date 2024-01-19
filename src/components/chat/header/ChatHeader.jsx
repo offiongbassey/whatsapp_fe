@@ -7,7 +7,7 @@ import {
 } from "../../../utils/chat";
 import { IoVideocamOutline } from "react-icons/io5";
 
-export default function ChatHeader({ online, callUser, setMobileToggle }) {
+export default function ChatHeader({ online, callUser, setMobileToggle, mobileToggle }) {
   const { activeConversation } = useSelector((state) => state.chat);
   const { user } = useSelector((state) => state.user);
   const name = activeConversation.isGroup
@@ -21,11 +21,13 @@ export default function ChatHeader({ online, callUser, setMobileToggle }) {
         {/*  left */}
         <div className="flex items-center gap-x-4">
           {/* mobile toggle */}
-          <button onClick={() => setMobileToggle(false)} className="btn">
+          {mobileToggle && 
+          <button onClick={() => setMobileToggle(false)} className="btn visible sm:invisible">
             <span className="rotate-180 scale-150 m-1">
               <ArrowIcon className="dark:fill-white" />
             </span>
           </button>
+          }
 
           {/* Conversation image */}
           <button className="btn">

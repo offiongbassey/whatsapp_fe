@@ -1,6 +1,6 @@
 import Contact from "./Contact";
 
-export default function SearchResults({ searchResults, setSearchResults }) {
+export default function SearchResults({ setMobileToggle, searchResults, setSearchResults }) {
   return (
     <div className="w-full convos scrollbar">
       <div>
@@ -14,6 +14,7 @@ export default function SearchResults({ searchResults, setSearchResults }) {
           {searchResults &&
             searchResults.map((user, key) => (
               <Contact
+              setMobileToggle={setMobileToggle}
                 contact={user}
                 key={key}
                 setSearchResults={setSearchResults}

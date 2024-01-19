@@ -61,8 +61,7 @@ export default function RegisterForm() {
       <div className="w-full max-w-md space-y-8 p-10 dark:bg-dark_bg_2 rounded-xl">
         {/* Heading */}
         <div className="text-center dark:text-dark_text_1">
-          <h2 className="mt-6 text-3xl font-bold">Welcome</h2>
-          <p className="mt-2 text-sm">Sign Up</p>
+          <h2 className="mt-6 text-3xl font-bold">Create your account</h2>
         </div>
 
         {/*form */}
@@ -75,19 +74,26 @@ export default function RegisterForm() {
             error={errors?.name?.message}
           />
           <AuthInput
-            name="email"
+            name="phone"
             type="text"
+            placeholder={"Phone Number"}
+            register={register}
+            error={errors?.phone?.message}
+          />
+          <AuthInput
+            name="email"
+            type="email"
             placeholder="Email Address"
             register={register}
             error={errors?.email?.message}
           />
-          <AuthInput
+          {/* <AuthInput
             name="status"
             type="text"
             placeholder="Status (Optional)"
             register={register}
             error={errors?.status?.message}
-          />
+          /> */}
           <AuthInput
             name="password"
             type="password"
@@ -119,15 +125,17 @@ export default function RegisterForm() {
             )}
           </button>
           {/* Sign in link  */}
-          <p className="flex flex-col items-center justify-center mt-10 text-center text-md dark:text-dark_text_1">
-            <span className="">have an account ?</span>
+          <div className="relative items-center justify-center mt-10 text-center text-md dark:text-dark_text_1">
+            <span className="">Already have an account ?  
+            </span>
             <Link
               to="/login"
-              className="hover:underline cursor-pointer transition ease-in duration-300"
+              className="hover:underline cursor-pointer px-2 transition ease-in duration-300 "
             >
-              Sign In
+               Sign In
             </Link>
-          </p>
+            
+          </div>
         </form>
       </div>
     </div>

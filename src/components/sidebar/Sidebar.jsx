@@ -37,6 +37,7 @@ const Sidebar = ({
       {searchResults.length > 0 ? (
         <>
           <SearchResults
+            setMobileToggle={setMobileToggle}
             searchResults={searchResults}
             setSearchResults={setSearchResults}
           />
