@@ -38,31 +38,28 @@ export default function Picture({
   };
 
   return (
-    <div className="mt-8 content-center dark:text-dark_text_1 space-y-1">
-      <label htmlFor="picture" className="text-sm font-bold tracking-wide">
-        Picture (Optional)
-      </label>
+    <div className="flex justify-center items-center mt-8 content-center dark:text-dark_text_1 space-y-1">
       {readablePicture ? (
-        <div>
+        <div className="flex flex-col items-center justify-center">
           <img
             src={readablePicture}
             alt="picture"
-            className="w-20 h-20 object-cover rounded-full"
+            className="w-48 h-full object-cover rounded-full"
           />
           {/*   change pics */}
-          <div
+          <button
             className="mt-2 py-1 w-20 dark:bg-dark_bg_3 rounded-md text-xs font-bold flex items-center justify-center cursor-pointer"
             onClick={() => handleChangePic()}
           >
             Remove
-          </div>
+          </button>
         </div>
       ) : (
         <div
-          className="w-full h-12 dark:bg-dark_bg_3 rounded-md font-bold flex items-center justify-center cursor-pointer"
+          className="w-full h-12 font-bold flex items-center justify-center cursor-pointer"
           onClick={() => inputRef.current.click()}
         >
-          Upload Picture
+          Select Photo from Device
         </div>
       )}
       <input

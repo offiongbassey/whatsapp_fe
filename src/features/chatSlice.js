@@ -178,7 +178,16 @@ export const removeMessage = createAsyncThunk(
 
       return data;
     } catch (error) {
-      return rejectWithValue(error.response.data.error.message);
+      if(typeof(error.response.data.message) === 'string'){
+        toast(error.response.data.message)
+      }else if(Array.isArray(error.response.data.message)) {
+        error.response.data.message.forEach((err) => {
+          toast.error(err.msg);
+        })
+      }else{
+        toast.error("An unexpected error occured");
+      }
+      return rejectWithValue("");
     }
   }
 );

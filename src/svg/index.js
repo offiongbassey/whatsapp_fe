@@ -33,6 +33,7 @@ import DialIcon from "./Dial";
 import VideoCallIcon from "./VideoCall";
 import DangerIcon from "./Danger";
 import VideoCallIcon2 from "./VideoCallI2";
+import WelcomeIcon from "./Welcome";
 export {
   CommunityIcon,
   StoryIcon,
@@ -68,6 +69,7 @@ export {
   DialIcon,
   VideoCallIcon,
   DangerIcon,
-  VideoCallIcon2
+  VideoCallIcon2,
+  WelcomeIcon
 
 };

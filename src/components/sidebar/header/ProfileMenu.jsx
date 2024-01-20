@@ -1,10 +1,16 @@
 import { useState } from "react";
 import { ArrowIcon } from "../../../svg";
 import ProfileImageMenu from "./ProfileImageMenu";
+import ProfileImage from "../../modal/ProfileImage";
+import ProfileImageUpload from "../../modal/ProfileImageUpload";
 
 export default function ProfileMenu({ setShowProfile, user }) {
     const [profileImageMenu, setProfileImageMenu] = useState(false);
+    const [previewProfileImage, setPreviewProfileImage] = useState(false);
+    const [profileUpload, setProfileUpload] = useState(false);
+    
     return(
+        <>
         <div className="absolute pt-[600px] left-0 z-50 dark:bg-dark_bg_2 dark:text-dark_text_1 shadow-md w-[440px]">
                 <ul>
                     <li>
@@ -38,8 +44,16 @@ export default function ProfileMenu({ setShowProfile, user }) {
                             </div>
                             {/* profile image properties */}
                             {profileImageMenu && 
-                            <ProfileImageMenu setProfileImageMenu={setProfileImageMenu} />
+                            <ProfileImageMenu setPreviewProfileImage={setPreviewProfileImage} setProfileImageMenu={setProfileImageMenu} user={user} setProfileUpload={setProfileUpload} />
                             }
+                            {/* image preview */}
+                            {previewProfileImage && 
+                            <ProfileImage open={previewProfileImage} onClose={() => setPreviewProfileImage(false)} user={user} />
+                             }
+                             {/* image upload */}
+                             {profileUpload &&
+                                <ProfileImageUpload open={profileUpload} onClose={() => setProfileUpload(false)} setProfileUpload={setProfileUpload} user={user} />
+                             }
                             <div className="flex flex-col gap-4 text-left pt-10 dark:bg-dark_bg_6">
                                 <span className=" dark:text-green_2 text-sm">Your name</span>
                                 <p>{user.name}</p>
@@ -52,5 +66,7 @@ export default function ProfileMenu({ setShowProfile, user }) {
                     </li>
                 </ul>
         </div>
+        
+        </>
     )
 }

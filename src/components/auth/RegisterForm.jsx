@@ -6,20 +6,13 @@ import { useDispatch, useSelector } from "react-redux";
 import PulseLoader from "react-spinners/PulseLoader";
 import { Link, useNavigate } from "react-router-dom";
 import { registerUser } from "../../features/userSlice.js";
-import { useState } from "react";
-import Picture from "./Picture.jsx";
-import axios from "axios";
-import { toast } from "react-toastify";
 
-const cloud_name = process.env.REACT_APP_CLOUD_NAME;
-const cloud_secret = process.env.REACT_APP_CLOUD_SECRET;
 
 export default function RegisterForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { status, error } = useSelector((state) => state.user);
-  const [picture, setPicture] = useState();
-  const [readablePicture, setReadablePicture] = useState("");
+
   const {
     register,
     handleSubmit,
@@ -30,31 +23,11 @@ export default function RegisterForm() {
   });
   const onSubmit = async (data) => {
     let res;
-    if (picture) {
-      //upload to cloudinary
-      await uploadImage().then(async (response) => {
-        res = await dispatch(
-          registerUser({ ...data, picture: response.secure_url })
-        );
-      });
-    } else {
       res = await dispatch(registerUser({ ...data, picture: "" }));
-    }
-   
     if (res?.payload?.data?.user) navigate("/");
   };
 
-  const uploadImage = async () => {
-    let formData = new FormData();
-    formData.append("upload_preset", cloud_secret);
-    formData.append("file", picture);
-    const { data } = await axios.post(
-      `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`,
-      formData
-    );
-    console.log(`Jere${data}`);
-    return data;
-  };
+
   return (
     <div className="min-h-screen w-full flex items-center justify-center overflow-hidden">
       {/* Container */}
@@ -87,13 +60,6 @@ export default function RegisterForm() {
             register={register}
             error={errors?.email?.message}
           />
-          {/* <AuthInput
-            name="status"
-            type="text"
-            placeholder="Status (Optional)"
-            register={register}
-            error={errors?.status?.message}
-          /> */}
           <AuthInput
             name="password"
             type="password"
@@ -101,12 +67,7 @@ export default function RegisterForm() {
             register={register}
             error={errors?.password?.message}
           />
-          {/* Picture */}
-          <Picture
-            readablePicture={readablePicture}
-            setReadablePicture={setReadablePicture}
-            setPicture={setPicture}
-          />
+       
           {/*  If we have an error */}
           {error ? (
             <div>

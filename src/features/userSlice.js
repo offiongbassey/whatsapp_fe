@@ -76,6 +76,34 @@ export const getLoggedInStatus = createAsyncThunk(
       return rejectWithValue(error.response.data.error.message);
     }
   }
+);
+
+export const updateProfileImage = createAsyncThunk(
+  "auth/update-profile",
+  async(values, { rejectWithValue}) => {
+    try {
+      const { picture, token } = values;
+      const { data } = await axios.post(`${AUTH_ENDPOINT}/update-profile-image`, { picture }, 
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      toast.success(data.message);
+      return data;
+    } catch (error) {
+      if(typeof(error.response.data.message) === 'string'){
+        toast(error.response.data.message)
+      }else if(Array.isArray(error.response.data.message)) {
+        error.response.data.message.forEach((err) => {
+          toast.error(err.msg);
+        })
+      }else{
+        toast.error("An unexpected error occured");
+      }
+      return rejectWithValue("");
+    }
+  }
 )
 
 export const userSlice = createSlice({
@@ -122,7 +150,18 @@ export const userSlice = createSlice({
       .addCase(loginUser.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
-      });
+      })
+      .addCase(updateProfileImage.pending, (state, action) => {
+        state.status = "loading";
+      })
+      .addCase(updateProfileImage.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.user.picture = action.payload.data;
+      })
+      .addCase(updateProfileImage.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload;
+      })
   },
 });
 
