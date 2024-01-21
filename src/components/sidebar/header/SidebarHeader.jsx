@@ -4,12 +4,14 @@ import { useState } from "react";
 import Menu from "./Menu";
 import CreateGroup from "./createGroup/CreateGroup";
 import ProfileMenu from "./ProfileMenu";
+import ThemeModal from "../../modal/ThemeModal";
 
 export default function SidebarHeader() {
   const { user } = useSelector((state) => state.user);
   const [showMenu, setShowMenu] = useState(false);
   const [showCreateGroup, setShowCreateGroup] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
+  const [showTheme, setShowTheme] = useState(false);
 
   console.log("here we go", showProfile)
 
@@ -61,13 +63,16 @@ export default function SidebarHeader() {
               </button>
               {/* create group Menu */}
               {showMenu ? (
-                <Menu setShowCreateGroup={setShowCreateGroup} />
+                <Menu setShowCreateGroup={setShowCreateGroup} setShowTheme={setShowTheme}/>
               ) : null}
 
             </li>
           </ul>
         </div>
       </div>
+      {/* theme settings */}
+      {showTheme && 
+      <ThemeModal open={showTheme} onClose={() => setShowTheme(false)} setShowTheme={setShowTheme} />}
       {/* Create Group */}
       {showCreateGroup && (
         <CreateGroup setShowCreateGroup={setShowCreateGroup} />

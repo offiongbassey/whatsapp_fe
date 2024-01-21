@@ -13,7 +13,7 @@ import React, { useState, useEffect} from "react";
 const socket = io(process.env.REACT_APP_API_ENDPOINT.split("/api/v1")[0]);
 
 function App() {
-  const { user } = useSelector((state) => state.user);
+  const { user, theme } = useSelector((state) => state.user);
   const { token } = user;
   const [isOnline, setIsOnline ] = useState(navigator.onLine);
 
@@ -32,9 +32,9 @@ function App() {
   }, []);
 
   !isOnline && toast.error("You are offline. Please check your network connection.")
-
+console.log("this is uers", theme, user);
   return (
-    <div className="dark">
+    <div className={theme}>
       <SocketContext.Provider value={socket} >
       <ToastContainer />
       <Router>

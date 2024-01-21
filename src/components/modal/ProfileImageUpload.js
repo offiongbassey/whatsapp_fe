@@ -5,6 +5,7 @@ import Picture from '../auth/Picture';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { updateProfileImage } from '../../features/userSlice';
+import { resizeFile } from "../../utils/resizeFile";
 
 const cloud_name = process.env.REACT_APP_CLOUD_NAME;
 const cloud_secret = process.env.REACT_APP_CLOUD_SECRET;

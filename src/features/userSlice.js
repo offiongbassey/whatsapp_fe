@@ -8,6 +8,7 @@ const initialState = {
   status: "",
   error: "",
   isLoggedIn: false,
+  theme: "",
   user: {
     _id: "",
     name: "",
@@ -125,6 +126,9 @@ export const userSlice = createSlice({
     setLogin: (state, action) => {
       state.isLoggedIn = action.payload;
     },
+    updateTheme: (state, action) => {
+      state.theme = action.payload;
+    }
   },
   extraReducers(builder) {
     builder
@@ -145,6 +149,7 @@ export const userSlice = createSlice({
       .addCase(loginUser.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.user = action.payload.data;
+        state.theme = "dark";
         state.isLoggedIn = true;
       })
       .addCase(loginUser.rejected, (state, action) => {
@@ -165,6 +170,6 @@ export const userSlice = createSlice({
   },
 });
 
-export const { logout, setLogin } = userSlice.actions;
+export const { logout, setLogin, updateTheme } = userSlice.actions;
 
 export default userSlice.reducer;

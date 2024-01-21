@@ -21,6 +21,7 @@ export default function RegisterForm() {
   });
   const onSubmit = async (values) => {
     let res = await dispatch(loginUser({ ...values }));
+   
     if (res?.payload?.user) {
       navigate("/");
     }

@@ -34,7 +34,7 @@ function Home({ socket }) {
   RedirectLoggedOutUser("/login");
   const [timer, setTimer] = useState(0);
   const dispatch = useDispatch();
-  const { user, isLoggedIn } = useSelector((state) => state.user);
+  const { user, isLoggedIn, theme } = useSelector((state) => state.user);
   const [pageReady, setPageReady] = useState(false);
 
   const { activeConversation } = useSelector((state) => state.chat);

@@ -6,13 +6,13 @@ import createFilter from "redux-persist-transform-filter";
 import chatSlice from "../features/chatSlice";
 
 //saveUserOnlyFilter
-const saveUserOnlyFilter = createFilter("user", ["user"]);
+const saveUserOnlyFilter = createFilter("user", ["user", "theme"]);
 
 //persist config
 const persistConfig = {
   key: "user",
   storage,
-  whitelist: ["user"],
+  whitelist: ["user", "theme"],
   transforms: [saveUserOnlyFilter],
 };
 

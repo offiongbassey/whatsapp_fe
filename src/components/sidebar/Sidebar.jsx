@@ -15,7 +15,6 @@ const Sidebar = ({
 }) => {
 
   const { isLoggedIn } = useSelector((state) => state.user);
-  console.log("here is the current status ", isLoggedIn);
   const [searchResults, setSearchResults] = useState([]);
   return (
     <div
