@@ -11,9 +11,9 @@ export default function ProfileMenu({ setShowProfile, user }) {
     
     return(
         <>
-        <div className="absolute pt-[600px] left-0 z-50 dark:bg-dark_bg_2 dark:text-dark_text_1 shadow-md w-[440px]">
-                <ul>
-                    <li>
+        <div className="absolute left-0 z-50 h-screen bg-light_bg_1 dark:bg-dark_bg_2 dark:text-dark_text_1 shadow-md w-[440px]">
+                
+                    <div className=" bg-green_2 pt-[450px] text-white">
                         <button
                         onClick={() => setShowProfile(false)} 
                         className="btn flex gap-8 pl-20">
@@ -22,12 +22,12 @@ export default function ProfileMenu({ setShowProfile, user }) {
                             </span>
                             <span>Profile</span>
                         </button>
-                    </li>
-                    <li
-                    // onClick={(e) => e.stopPropagation() }
+                    </div>
+                    <div
+                    onClick={(e) => e.stopPropagation() } className="bg-light_bg_2"
                     >
-                        <div className="dark:bg-dark_bg_6  w-full p-10">
-                            <div className="flex flex-col items-center">
+                        <div className="dark:bg-dark_bg_6  w-full">
+                            <div className="flex flex-col items-center p-10">
                                     <div className="group relative">
                                         <img
                                            
@@ -54,17 +54,22 @@ export default function ProfileMenu({ setShowProfile, user }) {
                              {profileUpload &&
                                 <ProfileImageUpload open={profileUpload} onClose={() => setProfileUpload(false)} setProfileUpload={setProfileUpload} user={user} />
                              }
-                            <div className="flex flex-col gap-4 text-left pt-10 dark:bg-dark_bg_6">
-                                <span className=" dark:text-green_2 text-sm">Your name</span>
+                            <div className="flex flex-col gap-4 text-left px-10 py-4 dark:bg-dark_bg_6 bg-white">
+                                <span className=" text-green_2 text-sm">Your name</span>
                                 <p>{user.name}</p>
-                                <p className="dark:text-dark_svg_2 text-sm">This is not your username or pin. This name will be visible to your WhatsApp contacts.</p>
+                            </div>
 
-                                <span className=" dark:text-green_2 text-sm pt-10">About</span>
+                            <div className="flex flex-col gap-4 text-left px-10 py-4 dark:bg-dark_bg_6">
+                                <p className="text-dark_svg_2 text-sm">This is not your username or pin. This name will be visible to your WhatsApp contacts.</p>
+                            </div>
+
+                            <div className="flex flex-col gap-4 text-left px-10 py-4 dark:bg-dark_bg_6 bg-white">
+                                <span className=" text-green_2 text-sm">About</span>
                                 <p>{user.status}</p>
                             </div>
                         </div>
-                    </li>
-                </ul>
+                    </div>
+               
         </div>
         
         </>

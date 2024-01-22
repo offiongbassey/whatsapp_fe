@@ -13,7 +13,7 @@ export default function Attachments({ showAttachments, setShowAttachments, setSh
          
         }}
         className="btn" type="button">
-          <AttachmentIcon className="dark:fill-dark_svg_1" />
+          <AttachmentIcon className="dark:fill-dark_svg_1 fill-light_text_2" />
         </button>
         {/* Menu */}
         {

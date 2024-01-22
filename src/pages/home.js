@@ -219,7 +219,7 @@ function Home({ socket }) {
         <>
       <div className="dark:bg-dark_bg_1 flex items-center justify-center overflow-hidden">
         {/* Container */}
-        <div className="container h-screen flex py-[19px]">
+        <div className="container h-screen flex">
           {/*  sidebar */}
           <Sidebar
             onlineUsers={onlineUsers}

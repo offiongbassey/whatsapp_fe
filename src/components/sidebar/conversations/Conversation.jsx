@@ -41,10 +41,10 @@ function Conversation({
         openConversation();
         setMobileToggle(true);
       }}
-      className={`list-none h-[72px] w-full dark:bg-dark_bg_1 hover:${
-        convo._id !== activeConversation._id ? "dark:bg-dark_bg_2" : ""
+      className={`list-none h-[72px] w-full dark:bg-dark_bg_1  hover:${
+        convo._id !== activeConversation._id ? "dark:bg-dark_bg_2 bg-white" : ""
       } cursor-pointer dark:text-dark_text_1 px-[10px] ${
-        convo._id === activeConversation._id ? "dark:bg-dark_hover_1" : ""
+        convo._id === activeConversation._id ? "dark:bg-dark_hover_1 bg-light_bg_3" : ""
       }`}
     >
       {/* Container */}
@@ -74,7 +74,7 @@ function Conversation({
           {/* Conversation name and message */}
           <div className="w-full flex flex-col min-w-[240px]">
             {/* Conversation name */}
-            <h1 className="font-bold flex items-center gap-x-2">
+            <h1 className="flex items-center gap-x-2">
               {convo.isGroup
                 ? convo.name
                 : getConversationName(user, convo.users)}
@@ -95,7 +95,7 @@ function Conversation({
                         )
                       )}
                       <p
-                        className={`${
+                        className={`text-light_text_2 ${
                           deletedMessage?._id === convo?.latestMessage?._id
                             ? "italic"
                             : convo?.latestMessage?.status === "deleted"
@@ -132,7 +132,7 @@ function Conversation({
         </div>
         {/*  Right */}
         <div className="flex flex-col gap-y-4 items-end text-xs">
-          <span className="dark:text-dark_text_2">
+          <span className="text-light_text_2 dark:text-dark_text_2">
             {dateHandler(convo?.latestMessage?.createdAt)}
           </span>
         </div>

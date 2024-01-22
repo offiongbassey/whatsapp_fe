@@ -8,7 +8,7 @@ import SocketContext from "../../../context/sendContext";
 
 function ReactionEmoji({ showEmoji, onClose, setShowEmoji, message, socket }) {
   const [loading, setLoading] = useState(false);
-  const { user } = useSelector((state) => state.user);
+  const { user, theme } = useSelector((state) => state.user);
   const { token } = user;
 
   const dispatch = useDispatch();
@@ -34,23 +34,23 @@ function ReactionEmoji({ showEmoji, onClose, setShowEmoji, message, socket }) {
       className={`
     fixed inset-0 flex justify-center items-center
     transition-colors
-    ${showEmoji ? "visible bg-dark_bg_6/40 z-20" : "invisible"}
+    ${showEmoji ? "visible bg-dark_bg_6/1 z-20" : "invisible"}
     `}
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className={`dark:bg-dark_hover_1 rounded-sm shadow p-6 transition-all 
+        className={`dark:bg-transparent bg-transparent rounded-sm p-6 transition-all 
       ${showEmoji ? "scale-100 opacity-100" : "scale-125 opacity-0"}
       `}
       >
-        <div className="mt-[300px]">
+        <div className="mt-[350px]">
           <ul className="gap-x-2">
             <li className="w-64">
               {/* emoji picket */}
               {showEmoji ? (
                 <div className="openEmojiAnimation absolute bottom-[60px] left-[-0.5px] w-full">
                   <EmojiPicker
-                    theme="dark"
+                    theme={theme === "dark" ? "dark" : "light"}
                     onEmojiClick={handleReactionEmoji}
                   />
                 </div>
@@ -58,7 +58,7 @@ function ReactionEmoji({ showEmoji, onClose, setShowEmoji, message, socket }) {
             </li>
           </ul>
 
-          <div className="mx-auto w-96 flex flex-col items-end">
+          {/* <div className="mx-auto w-72 flex flex-col items-end">
             <div className="flex gap-4 mb-4 pl-4">
               <span
                 className="cursor-pointer scale-150 pt-24"
@@ -67,11 +67,11 @@ function ReactionEmoji({ showEmoji, onClose, setShowEmoji, message, socket }) {
                 {!loading ? (
                   <CloseIcon className="dark:fill-dark_svg_1" />
                 ) : (
-                  <ClipLoader className="fill-white bg-white mt-2 h-full" />
+                  <ClipLoader color="red" className="fill-white bg-white mt-2 h-full" />
                 )}
               </span>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

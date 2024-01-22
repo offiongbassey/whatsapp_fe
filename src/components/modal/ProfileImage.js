@@ -8,7 +8,7 @@ export default function ProfileImage({ open, onClose, setOpenModal, user}) {
         className={`
         fixed inset-0 
         transition-colors
-        ${open ? "visible bg-dark_bg_6/80 z-20" : "invisible"}`}
+        ${open ? "visible dark:bg-dark_bg_6/80 bg-light_bg_3/80 z-20" : "invisible"}`}
     >   
         <div className="flex p-5">
             <div className="flex gap-4">

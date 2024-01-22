@@ -7,11 +7,11 @@ export default function PageLoad({ timer }) {
     <div className='h-screen w-full  dark:bg-dark_bg_1 select-  '>
         {/* container */}
         <div className='-mt-1.5 w-full h-full flex flex-col gap-y-8 items-center justify-center'>
-            <span className='scale-[2.7] dark:fill-dark_svg_2'>
+            <span className='scale-[2.7] dark:fill-dark_svg_2 fill-light_bg_3'>
                 <WelcomeIcon />
             </span>
             <div class="md:w-[30%] w-[70%] bg-gray-200 h-[3px] dark:bg-gray-700 mt-5">
-                        <div className={` dark:bg-green_2 h-[3px] w-[${timer}%] `}></div>
+                        <div className={` bg-green_2 h-[3px] w-[${timer}%] `}></div>
                 </div>
             {/* Page Loading info */}
             <div className='mt-1 text-center space-y-[12px] '>

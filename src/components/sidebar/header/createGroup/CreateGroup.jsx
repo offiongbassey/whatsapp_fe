@@ -82,7 +82,7 @@ export default function CreateGroup({ setShowCreateGroup }) {
           className="btn w-6 h-6 border"
           onClick={() => setShowCreateGroup(false)}
         >
-          <ReturnIcon className="fill-white" />
+          <ReturnIcon className="dark:fill-white" />
         </button>
         {/* group name input */}
         <UnderlineInput name={name} setName={setName} />

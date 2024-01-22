@@ -8,7 +8,7 @@ export default function FilesPreview() {
   const [message, setMessage] = useState(" ");
   const [activeIndex, setActiveIndex] = useState(0);
   return (
-    <div className="relative py-2 w-full flex items-center justify-center">
+    <div className="relative py-2 bg-light_bg_3 w-full flex items-center justify-center">
       {/* container */}
       <div className="w-full flex flex-col items-center">
         {/* Header */}

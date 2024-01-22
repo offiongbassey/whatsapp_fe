@@ -42,7 +42,7 @@ export default function FileMessage({
 
   return (
     <div
-      className={`w-full flex mt-2 sspace-x-3 max-w-xs ${
+      className={`w-full flex mt-2 space-x-3 max-w-xs ${
         me ? "ml-auto justify-end" : ""
       }`}
     >
@@ -80,21 +80,23 @@ export default function FileMessage({
           : message.status === "deleted"
           ? ""
           : me
-          ? "border-[3px] border-green_3 "
-          : "dark:bg-dark_bg_2"
+          ? "border-[3px] dark:border-green_3 border-light_bg_6"
+          : "dark:bg-dark_bg_2 bg-light_bg_6"
       }
       ${
         !me && deletedMessage._id === message._id
-          ? "dark:bg-dark_bg_2 p-3"
+          ? "dark:bg-dark_bg_2 bg-light_bg_2 p-3"
           : !me && message.status === "deleted"
-          ? "dark:bg-dark_bg_2 p-3"
+          ? "dark:bg-dark_bg_2 bg-light_bg_2 p-3"
           : me && deletedMessage._id === message._id
-          ? "bg-[#133e35] p-3"
+          ? "dark:bg-[#133e35] bg-light_bg_6 p-3"
           : me && message.status === "deleted"
-          ? "bg-[#133e35] p-3"
+          ? "dark:bg-[#133e35] bg-light_bg_6 p-3"
           : me && file.public_id.split(".")[1] === "png"
-          ? "bg-white"
-          : "bg-green_3 p-1"
+          ? "dark:bg-white bg-light_bg_6"
+          : me 
+          ? " bg-light_bg_6 p-1"
+          : "dark:bg-green_3 bg-white p-1"
       }
       `}
         >
@@ -135,7 +137,7 @@ export default function FileMessage({
             ) : type === "IMAGE" || type === "VIDEO" ? (
               <FileImageVideo url={file.secure_url} type={type} />
             ) : (
-              <FileOthers file={file} type={type} />
+              <FileOthers file={file} type={type} me={me} />
             )}
           </p>
           {/* menu button */}
@@ -189,14 +191,14 @@ export default function FileMessage({
           {/* Triangle */}
           <span>
             {!me ? (
-              <TriangleIcon className="dark:fill-dark_bg_2 rotate-[60deg] absolute top-[-5px] -left-1.5 " />
+              <TriangleIcon className="fill-light_bg_2 dark:fill-dark_bg_2 rotate-[60deg] absolute top-[-5px] -left-1.5 " />
             ) : null}
           </span>
           <span
             onClick={() => setOpenReactionPreview(true)}
             className={`absolute ${
               me ? "right-0" : ""
-            } cursor-pointer  bottom-[-20px] dark:bg-dark_bg_5 px-2 scale-100 rounded-xl`}
+            } cursor-pointer  bottom-[-20px] bg-light_bg_2 dark:bg-dark_bg_5 px-2 scale-100 rounded-xl`}
           >
             {message.reaction.map((item) => item.emoji)}
           </span>

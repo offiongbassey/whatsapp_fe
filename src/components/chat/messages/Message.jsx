@@ -81,12 +81,12 @@ export default function Message({
       ${message.is_reply ? "p-1" : "p-2"} rounded-lg 
       ${
         me && deletedMessage._id === message._id
-          ? "bg-[#133e35]"
+          ? "bg-light_bg_6  dark:bg-[#133e35]"
           : me && message.status === "active"
-          ? "bg-green_3"
+          ? "bg-light_bg_6 dark:bg-green_3"
           : me && message.status === "deleted"
-          ? "bg-[#133e35]"
-          : "dark:bg-dark_bg_2"
+          ? "bg-light_bg_6 dark:bg-[#133e35]"
+          : "bg-light_bg_2 dark:bg-dark_bg_2"
       }`}
         >
           {/* message */}
@@ -98,21 +98,21 @@ export default function Message({
                 message.message_replied.message.length > 120
                   ? "w-[300px]"
                   : "w-full"
-              } mb-3 h-20 dark:bg-dark_bg_3 rounded-lg flex overflow-hidden`}
+              } mb-3 h-20 ${me ? "bg-light_bg_7" : "bg-light_bg_1"} dark:bg-dark_bg_3 rounded-lg flex overflow-hidden`}
             >
               <span
                 className={`${
                   message.sender._id === user._id
-                    ? "dark:bg-blue-400"
-                    : "dark:bg-green-400"
+                    ? "dark:bg-blue-400 bg-green-400"
+                    : "dark:bg-green-400 bg-blue-400"
                 } w-1`}
               ></span>
               <div className="absolute m-3">
                 <p
                   className={`${
                     message.sender._id === user._id
-                      ? "dark:text-blue-400"
-                      : "dark:text-green-400"
+                      ? "dark:text-blue-400 text-green-400"
+                      : "dark:text-green-400 text-blue-400"
                   } text-xs font-semibold`}
                 >
                   {message.sender._id === user._id
@@ -129,9 +129,9 @@ export default function Message({
           ) : null}
           <div className="flex">
             {deletedMessage._id === message._id ? (
-              <DangerIcon />
+              <DangerIcon className="fill-light_text_2" />
             ) : message.status === "deleted" ? (
-              <DangerIcon />
+              <DangerIcon className="fill-light_text_2" />
             ) : null}
             <p className="float-left break-all text-sm pb-4 pr-8">
               {me && message.status === "deleted"
@@ -212,7 +212,7 @@ export default function Message({
           />
 
           {/* message date */}
-          <span className="absolute right-1.5 bottom-1.5 text-xs text-dark_text_5 leading-none">
+          <span className="absolute right-1.5 bottom-1.5 text-xs text-light_text_2 dark:text-dark_text_5 leading-none">
             {" "}
             {message?.editedStatus ? "Edited" : ""}{" "}
             {moment(message.createdAt).format("HH:mm:a")}
@@ -220,14 +220,14 @@ export default function Message({
           {/* Triangle */}
           <span>
             {!me ? (
-              <TriangleIcon className="dark:fill-dark_bg_2 rotate-[60deg] absolute top-[-5px] -left-1.5 " />
+              <TriangleIcon className="fill-light_bg_2 dark:fill-dark_bg_2 rotate-[60deg] absolute top-[-5px] -left-1.5 " />
             ) : null}
           </span>
           <span
             onClick={() => setOpenReactionPreview(true)}
             className={`absolute ${
               me ? "right-0" : ""
-            } cursor-pointer  bottom-[-20px] dark:bg-dark_bg_5 px-2 scale-100 rounded-xl`}
+            } cursor-pointer  bottom-[-20px] bg-white dark:bg-dark_bg_5 px-2 scale-100 rounded-xl`}
           >
             {message.reaction.map((item) => item.emoji)}
           </span>

@@ -1,12 +1,19 @@
 import { Logo } from "../../../svg";
+import lightLogo from "../../../assets/light-bg2.png";
+import { useSelector } from "react-redux";
 
 export default function WhatsapaHome() {
+  const {theme} = useSelector((state) => state.user);
   return (
     <div className="h-full w-full invisible sm:visible dark:bg-dark_bg_4 select-none border-l dark:border-l-dark_border_2 border-b-[6px] border-b-green_2">
       {/* Container */}
       <div className="-mt-1.5 w-full h-full flex flex-col gap-y-8 items-center justify-center">
         <span>
+          {theme === "light" ? 
+          <img src={lightLogo} alt="light-mode" className="w-full" />
+          :
           <Logo />
+          }
         </span>
         {/* infos */}
         <div className="mt-1 text-center space-y-[12px]">

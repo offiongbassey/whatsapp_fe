@@ -5,7 +5,6 @@ import Picture from '../auth/Picture';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { updateProfileImage } from '../../features/userSlice';
-import { resizeFile } from "../../utils/resizeFile";
 
 const cloud_name = process.env.REACT_APP_CLOUD_NAME;
 const cloud_secret = process.env.REACT_APP_CLOUD_SECRET;
@@ -51,11 +50,11 @@ export default function ProfileImageUpload({ open, onClose, setProfileUpload, us
         className={`
         fixed inset-0 flex justify-center items-center
         transition-colors
-        ${open ? "visible bg-dark_bg_6/80 z-20" : "invisible"}`}
+        ${open ? "visible dark:bg-dark_bg_6/80 bg-light_bg_3/80 z-20 " : "invisible"}`}
     >
        <div
           onClick={(e) => e.stopPropagation()}
-          className={`dark:bg-dark_hover_1 w-[35%] min-w-96 rounded-sm shadow pt-6 transition-all
+          className={`dark:bg-dark_hover_1 bg-green_2 w-[35%] min-w-96 rounded-sm shadow pt-6 transition-all
         ${open ? "scale-100 opacity-100" : "scale-125 opacity-0"}`}
         >
             <div>
@@ -68,7 +67,7 @@ export default function ProfileImageUpload({ open, onClose, setProfileUpload, us
               </span>
               <p className="dark:text-dark_text_1">Upload Profile Image</p>
             </div>
-            <div className="bg-[url('https://res.cloudinary.com/dmhcnhtng/image/upload/v1677358270/Untitled-1_copy_rpx8yb.jpg')] bg-cover bg-no-repeat p-14">
+            <div className="bg-[url('https://res.cloudinary.com/dfhabqprq/image/upload/v1705863138/newwhatsapp_1_yi3kq3.png')] dark:bg-[url('https://res.cloudinary.com/dmhcnhtng/image/upload/v1677358270/Untitled-1_copy_rpx8yb.jpg')] bg-cover bg-no-repeat p-14">
               <div className="relative flex items-center justify-center h-full ">
               <Picture
                 readablePicture={readablePicture}
@@ -78,7 +77,7 @@ export default function ProfileImageUpload({ open, onClose, setProfileUpload, us
               </div>
             </div>
 
-            <div className="dark:bg-dark_bg_1 p-4 flex gap-4">
+            <div className="dark:bg-dark_bg_1 bg-light_bg_3 p-4 flex gap-4">
               {picture &&
               <button
                 type="button"

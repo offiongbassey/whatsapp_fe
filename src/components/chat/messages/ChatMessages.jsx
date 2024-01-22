@@ -39,7 +39,7 @@ function ChatMessages({
 
   return (
     <div
-      className="mb-[60px] bg-[url('https://res.cloudinary.com/dmhcnhtng/image/upload/v1677358270/Untitled-1_copy_rpx8yb.jpg')]
+      className="mb-[60px] bg-[url('https://res.cloudinary.com/dfhabqprq/image/upload/v1705863138/newwhatsapp_1_yi3kq3.png')] dark:bg-[url('https://res.cloudinary.com/dmhcnhtng/image/upload/v1677358270/Untitled-1_copy_rpx8yb.jpg')]
     bg-cover bg-no-repeat 
     "
     >

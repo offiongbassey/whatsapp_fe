@@ -55,7 +55,7 @@ function EditModal({ socket, open, onClose, message, setOpenEditModal }) {
       >
         <div
           onClick={(e) => e.stopPropagation()}
-          className={`dark:bg-dark_hover_1 w-[35%] min-w-96 rounded-sm shadow pt-6 transition-all
+          className={`dark:bg-dark_hover_1 bg-green_4 text-white w-[35%] min-w-96 rounded-sm shadow pt-6 transition-all
         ${open ? "scale-100 opacity-100" : "scale-125 opacity-0"}`}
         >
           <div>
@@ -64,12 +64,12 @@ function EditModal({ socket, open, onClose, message, setOpenEditModal }) {
                 className="cursor-pointer"
                 onClick={() => setOpenEditModal(false)}
               >
-                <CloseIcon className="dark:fill-dark_svg_1" />
+                <CloseIcon className="dark:fill-dark_svg_1 fill-light_bg_3" />
               </span>
               <p className="dark:text-dark_text_1">Edit Message</p>
             </div>
-            <div className="bg-[url('https://res.cloudinary.com/dmhcnhtng/image/upload/v1677358270/Untitled-1_copy_rpx8yb.jpg')] bg-cover bg-no-repeat p-14">
-              <div className="relative flex h-full  dark:text-dark_text_1 p-2 rounded-lg bg-[#1f6052]">
+            <div className="bg-[url('https://res.cloudinary.com/dfhabqprq/image/upload/v1705863138/newwhatsapp_1_yi3kq3.png')] dark:bg-[url('https://res.cloudinary.com/dmhcnhtng/image/upload/v1677358270/Untitled-1_copy_rpx8yb.jpg')] bg-cover bg-no-repeat p-14">
+              <div className="relative flex h-full  dark:text-dark_text_1 p-2 rounded-lg bg-light_bg_6 text-light_text_1 dark:bg-[#1f6052]">
                 <p className="float-left h-full text-sm pb-4">
                   {message.message}
                 </p>
@@ -80,7 +80,7 @@ function EditModal({ socket, open, onClose, message, setOpenEditModal }) {
               </div>
             </div>
 
-            <div className="dark:bg-dark_bg_1 p-4 flex gap-4">
+            <div className="dark:bg-dark_bg_1 text-light_text_1 bg-light_bg_3 p-4 flex gap-4">
               {/* input section */}
               <InputWithSocket
                 message={newMessage}

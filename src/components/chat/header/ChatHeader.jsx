@@ -15,7 +15,7 @@ export default function ChatHeader({ online, callUser, setMobileToggle, mobileTo
     : getConversationName(user, activeConversation.users);
   // dark:bg-dark_bg_2
   return (
-    <div className="h-[68px] dark:bg-dark_bg_2  py-6 flex items-center p16 select-none">
+    <div className="h-[68px] bg-light_bg_1 dark:bg-dark_bg_2  py-6 flex items-center p16 select-none">
       {/* container */}
       <div className="w-full flex items-center justify-between">
         {/*  left */}
@@ -43,7 +43,7 @@ export default function ChatHeader({ online, callUser, setMobileToggle, mobileTo
           </button>
           {/* Conversation name and online status */}
           <div className="flex flex-col">
-            <h1 className="dark:text-white text-md font-bold">{name}</h1>
+            <h1 className="dark:text-white text-md">{name}</h1>
 
             <span className="text-xs dark:text-dark_svg_2">
               {!activeConversation.isGroup && online ? "online" : ""}
@@ -57,7 +57,7 @@ export default function ChatHeader({ online, callUser, setMobileToggle, mobileTo
               <button className="btn">
                 {/* <VideoCallIcon2 className="dark:fill-dark_svg_1 scale-200" /> */}
                 <span className=" scale-150">
-                  <IoVideocamOutline className="dark:text-blue-500" />
+                  <IoVideocamOutline className="fill-light_text_2 dark:text-blue-500" />
                 </span>
               </button>
             </li>
@@ -66,19 +66,19 @@ export default function ChatHeader({ online, callUser, setMobileToggle, mobileTo
             <li>
               <button className="btn">
                 <span className=" scale-75">
-                  <CallIcon className="dark:fill-blue-500" />
+                  <CallIcon className="fill-light_text_2 dark:fill-blue-500" />
                 </span>
               </button>
             </li>
           ) : null}
           <li>
             <button className="btn">
-              <SearchLargeIcon className="dark:fill-dark_svg_1 " />
+              <SearchLargeIcon className="fill-light_text_2 dark:fill-dark_svg_1 " />
             </button>
           </li>
           <li>
             <button className="btn">
-              <DotsIcon className="dark:fill-dark_svg_1" />
+              <DotsIcon className="fill-light_text_2 dark:fill-dark_svg_1" />
             </button>
           </li>
         </ul>

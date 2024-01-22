@@ -34,7 +34,7 @@ export default function Search({ searchLength, setSearchResults }) {
       <div className="px-[10px]">
         {/* Search input */}
         <div className="flex items-center gap-x-2">
-          <div className="w-full flex dark:bg-dark_bg_2 rounded-lg pl-2">
+          <div className="w-full flex bg-light_bg_1 dark:bg-dark_bg_2 rounded-lg pl-2">
             {show || searchLength > 0 ? (
               <span
                 className="w-8 flex items-center justify-center rotateAnimation cursor-pointer"
@@ -44,20 +44,21 @@ export default function Search({ searchLength, setSearchResults }) {
               </span>
             ) : (
               <span className="w-8 flex items-center justify-center">
-                <SearchIcon className="dark:fill-dark_svg_2 w-5" />
+                <SearchIcon className="fill-light_text_2 dark:fill-dark_svg_2 w-5" />
               </span>
             )}
             <input
               type="text"
               placeholder="Search or start a new chat"
-              className="input"
+              className="input dark:bg-transparent bg-light_bg_1"
               onFocus={() => setShow(true)}
               onBlur={() => searchLength === 0 && setShow(false)}
               onKeyDown={(e) => handleSearch(e)}
+            
             />
           </div>
           <button className="btn">
-            <FilterIcon className="dark:fill-dark_svg_2" />
+            <FilterIcon className="fill-light_text_2 dark:fill-dark_svg_2" />
           </button>
         </div>
       </div>

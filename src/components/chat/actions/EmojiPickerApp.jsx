@@ -37,7 +37,7 @@ export default function EmojiPickerApp({
         {showEmoji ? (
           <CloseIcon className="dark:fill-dark_svg_1" />
         ) : (
-          <EmojiIcon className="dark:fill-dark_svg_1" />
+          <EmojiIcon className="dark:fill-dark_svg_1 fill-light_text_2" />
         )}
       </button>
       {/* Emoji Picker */}

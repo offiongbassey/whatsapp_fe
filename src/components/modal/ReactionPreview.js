@@ -15,7 +15,7 @@ export default function ReactionPreview({
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className={`dark:bg-dark_bg_4 w-80 ${
+        className={`dark:bg-dark_bg_4 bg-light_bg_2 w-80 ${
           me ? "right-24" : ""
         }  bottom-44 absolute rounded-3xl shadow p-6 transition-all
         ${open ? "scale-100 opacity-100" : "scale-125 opacity-0"} `}

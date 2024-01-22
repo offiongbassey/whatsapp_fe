@@ -21,7 +21,7 @@ function ChatActions({
   const [showEmoji, setShowEmoji] = useState(false);
   const [loading, setLoading] = useState(false);
   const { activeConversation, status } = useSelector((state) => state.chat);
-  const { user } = useSelector((state) => state.user);
+  const { user, theme } = useSelector((state) => state.user);
   const { token } = user;
   const [message, setMessage] = useState("");
   const [textareaDetector, setTextAreaDetector] = useState(1);
@@ -91,7 +91,7 @@ function ChatActions({
         }
       }}
       // ${currentReplyMessage === "" ? "min-h-[60px]" :  "min-h-[115px]"}
-      className={`dark:bg-dark_bg_2 
+      className={`dark:bg-dark_bg_2 bg-light_bg_1
      ${
        currentReplyMessage === "" && textareaDetector > 3
          ? "max-h-[115px]"
@@ -119,20 +119,20 @@ function ChatActions({
       {/*  reply */}
       {openReplyMessage ? (
         <div className="flex">
-          <div className="w-[905px] mb-3 dark:bg-dark_bg_1 rounded-lg flex overflow-hidden">
+          <div className="w-[905px] mb-3 bg-light_bg_3 dark:bg-dark_bg_1 rounded-lg flex overflow-hidden">
             <span
               className={`${
                 currentReplyMessage.sender._id === user._id
-                  ? "dark:bg-blue-400"
-                  : "dark:bg-green-400"
+                  ? "dark:bg-blue-400 bg-green-400"
+                  : "dark:bg-green-400 bg-blue-400"
               }  py-6 w-1 h-[80px]`}
             ></span>
             <div className="absolute m-3">
               <p
                 className={`${
                   currentReplyMessage.sender._id === user._id
-                    ? "dark:text-blue-400"
-                    : "dark:text-green-400"
+                    ? "dark:text-blue-400 text-green-400"
+                    : "dark:text-green-400 text-blue-400"
                 } text-xs font-semibold`}
               >
                 {currentReplyMessage !== "" &&
@@ -198,9 +198,9 @@ function ChatActions({
 
         <button type="submit" className="btn" disabled={loading ? true : false}>
           {loading ? (
-            <ClipLoader color="#E9EDEF" size={25} />
+            <ClipLoader color={`${theme === "dark" ? "#E9EDEF" : "#000"}`}  size={25} />
           ) : (
-            <SendIcon className="dark:fill-dark_svg_1" />
+            <SendIcon className="dark:fill-dark_svg_1 fill-light_text_2" />
           )}
         </button>
       </div>

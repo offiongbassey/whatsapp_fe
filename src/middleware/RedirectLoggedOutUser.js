@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom"
-import { getLoggedInStatus, logout, setLogin } from "../features/userSlice";
+import { getLoggedInStatus, logout, setLogin, updateTheme } from "../features/userSlice";
 import { destroyActiveConversation } from "../features/chatSlice";
 
 const RedirectLoggedOutUser = async (path) => {
@@ -15,6 +15,7 @@ const RedirectLoggedOutUser = async (path) => {
             dispatch(setLogin(is_logged_in.payload));
             if(!is_logged_in.payload){
                 dispatch(logout());
+                dispatch(updateTheme("dark"));
                 dispatch(destroyActiveConversation());
                 navigate(path);
             }

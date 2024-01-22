@@ -35,7 +35,7 @@ export default function MultipleSelect({
             ...baseStyles,
             border: "none",
             borderColor: "transparent",
-            background: "transparent",
+            background: "#32de84",
           }),
         }}
       />
