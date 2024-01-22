@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import Typing from "./Typing";
 import FileMessage from "./files/FileMessage";
 import { removeMessage } from "../../../features/chatSlice";
-import SocketContext from "../../../context/sendContext";
+import SocketContext from "../../../context/sendContext"
 
 function ChatMessages({
   socket,
@@ -39,9 +39,9 @@ function ChatMessages({
 
   return (
     <div
-      className="mb-[60px] bg-[url('https://res.cloudinary.com/dfhabqprq/image/upload/v1705863138/newwhatsapp_1_yi3kq3.png')] dark:bg-[url('https://res.cloudinary.com/dmhcnhtng/image/upload/v1677358270/Untitled-1_copy_rpx8yb.jpg')]
+      className={`mb-[60px] dark:darkBg lightBg
     bg-cover bg-no-repeat 
-    "
+    `}
     >
       {/* container */}
       {/* <div className=""> */}

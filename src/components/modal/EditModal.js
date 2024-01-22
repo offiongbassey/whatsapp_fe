@@ -68,7 +68,7 @@ function EditModal({ socket, open, onClose, message, setOpenEditModal }) {
               </span>
               <p className="dark:text-dark_text_1">Edit Message</p>
             </div>
-            <div className="bg-[url('https://res.cloudinary.com/dfhabqprq/image/upload/v1705863138/newwhatsapp_1_yi3kq3.png')] dark:bg-[url('https://res.cloudinary.com/dmhcnhtng/image/upload/v1677358270/Untitled-1_copy_rpx8yb.jpg')] bg-cover bg-no-repeat p-14">
+            <div className="lightBg dark:darkBg bg-cover bg-no-repeat p-14">
               <div className="relative flex h-full  dark:text-dark_text_1 p-2 rounded-lg bg-light_bg_6 text-light_text_1 dark:bg-[#1f6052]">
                 <p className="float-left h-full text-sm pb-4">
                   {message.message}

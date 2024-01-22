@@ -20,7 +20,6 @@ import {
   getConversationPicture,
 } from "../utils/chat";
 import RedirectLoggedOutUser from "../middleware/RedirectLoggedOutUser";
-import PageLoad from "../components/chat/Welcome/PageLoad";
 
 const callData = {
   socketId: "",
@@ -35,7 +34,7 @@ function Home({ socket }) {
   const [timer, setTimer] = useState(0);
   const dispatch = useDispatch();
   const { user, isLoggedIn, theme } = useSelector((state) => state.user);
-  const [pageReady, setPageReady] = useState(false);
+  // const [pageReady, setPageReady] = useState(false);
 
   const { activeConversation } = useSelector((state) => state.chat);
   const [onlineUsers, setOnlineUsers] = useState([]);
@@ -61,10 +60,6 @@ function Home({ socket }) {
     if(timer < 50) setTimer(timer + 20);
     else setTimer(100)
   }, 1000)
-
-  setTimeout(function () {
-    setPageReady(true);
-  }, 5000);
 
   //typing
   const [typing, setTyping] = useState(false);
@@ -214,9 +209,7 @@ function Home({ socket }) {
 
   return (
     <>
-    {
-      pageReady ? (
-        <>
+    
       <div className="dark:bg-dark_bg_1 flex items-center justify-center overflow-hidden">
         {/* Container */}
         <div className="container h-screen flex">
@@ -258,11 +251,7 @@ function Home({ socket }) {
         totalSecInCall={totalSecInCall}
         setTotalSecInCall={setTotalSecInCall}
       />
-      </>
-      ) : (
-        <PageLoad timer={timer} />
-      )
-    }
+      
     </>
   );
 }

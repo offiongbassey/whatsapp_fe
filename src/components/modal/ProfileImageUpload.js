@@ -63,11 +63,11 @@ export default function ProfileImageUpload({ open, onClose, setProfileUpload, us
                 className="cursor-pointer"
                 onClick={() => setProfileUpload(false)}
               >
-                <CloseIcon className="dark:fill-dark_svg_1" />
+                <CloseIcon className="fill-dark_svg_1" />
               </span>
-              <p className="dark:text-dark_text_1">Upload Profile Image</p>
+              <p className="text-dark_text_1">Upload Profile Image</p>
             </div>
-            <div className="bg-[url('https://res.cloudinary.com/dfhabqprq/image/upload/v1705863138/newwhatsapp_1_yi3kq3.png')] dark:bg-[url('https://res.cloudinary.com/dmhcnhtng/image/upload/v1677358270/Untitled-1_copy_rpx8yb.jpg')] bg-cover bg-no-repeat p-14">
+            <div className="lightBg dark:darkBg bg-cover bg-no-repeat p-14">
               <div className="relative flex items-center justify-center h-full ">
               <Picture
                 readablePicture={readablePicture}

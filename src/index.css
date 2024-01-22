@@ -58,9 +58,15 @@
     }
     .callbg{
         background-image: linear-gradient(black,black), 
-        url(https://res.cloudinary.com/dmhcnhtng/image/upload/v1677358270/Untitled-1_copy_rpx8yb.jpg);
+        url('/src/assets/dark-bg.jpg');
         background-size: cover;
         background-blend-mode: saturation;
+    }
+    .darkBg{
+      background-image: url('/src/assets/dark-bg.jpg');
+    }
+    .lightBg{
+      background-image: url('/src/assets/light-bg.jpg');
     }
     .largeVideoCall {
         @apply absolute top-0 bottom-0 left-0 right-0 z-20 object-cover h-full bg-red-400 cursor-pointer;
