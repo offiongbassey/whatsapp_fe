@@ -8,7 +8,7 @@ const initialState = {
   status: "",
   error: "",
   isLoggedIn: false,
-  theme: "",
+  theme: "dark",
   user: {
     _id: "",
     name: "",
