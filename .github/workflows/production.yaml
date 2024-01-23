@@ -16,7 +16,7 @@ jobs:
             - uses: actions/checkout@v3
             
             - name: Install Vercel CLI
-              run: yarn install --global vercel
+              run: yarn global add vercel
             
             - name: Pull Vercel Environment Information
               run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
