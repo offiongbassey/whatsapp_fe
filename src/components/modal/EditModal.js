@@ -31,7 +31,6 @@ function EditModal({ socket, open, onClose, message, setOpenEditModal }) {
       } 
       setOpenEditModal(false);
       setLoading(false);
-      console.log(editMsg);
     }
   };
 

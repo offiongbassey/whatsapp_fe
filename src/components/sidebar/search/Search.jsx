@@ -2,6 +2,7 @@ import { useState } from "react";
 import { FilterIcon, ReturnIcon, SearchIcon } from "../../../svg";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export default function Search({ searchLength, setSearchResults }) {
   const { user } = useSelector((state) => state.user);
@@ -21,7 +22,8 @@ export default function Search({ searchLength, setSearchResults }) {
         );
         setSearchResults(data.data);
       } catch (error) {
-        console.log(error.response.data.error.message);
+        toast.error("Search not found");
+        // console.log(error.response.data.error.message);
       }
     } else {
       setSearchResults([]);

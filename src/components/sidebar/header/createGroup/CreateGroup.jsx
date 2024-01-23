@@ -45,7 +45,8 @@ export default function CreateGroup({ setShowCreateGroup }) {
           setSearchResults([]);
         }
       } catch (error) {
-        console.log(error.response.data.error.message);
+        toast.error("Search not found.")
+        // console.log(error.response.data.error.message);
       }
     } else {
       setSearchResults([]);

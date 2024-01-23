@@ -12,7 +12,6 @@ export default function ThemeModal({ open, onClose, setShowTheme }) {
         await dispatch(updateTheme(newTheme));
         setShowTheme(false);
     }
-    console.log("Theme ", theme)
   return (
     <div
     onClick={onClose}

@@ -24,7 +24,6 @@ export const getConversations = createAsyncThunk(
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log("Getting convo -------> ", data);
       return data;
     } catch (error) {
       if(typeof(error.response.data.message) === 'string'){
@@ -359,7 +358,6 @@ export const chatSlice = createSlice({
           msg.reaction = action.payload.reaction;
         }
       });
-      console.log("Testpro ---", state.messages);
     },
     addFiles: (state, action) => {
       state.files = [...state.files, action.payload];
@@ -382,7 +380,6 @@ export const chatSlice = createSlice({
       .addCase(getConversations.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.conversations = action.payload.data;
-        console.log("Getting convo 2 ----", action.payload.data);
       })
       .addCase(getConversations.rejected, (state, action) => {
         state.status = "failed";

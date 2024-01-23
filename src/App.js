@@ -37,7 +37,6 @@ function App() {
   }, []);
 
   !isOnline && toast.error("You are offline. Please check your network connection.")
-console.log("this is uers", theme, user);
   return (
     <div className={theme}>
       <SocketContext.Provider value={socket} >
@@ -58,6 +57,7 @@ console.log("this is uers", theme, user);
             : <Navigate to="/login" /> } />
             <Route path="/login" element={!token ? <Login /> : <Navigate to="/" />} />
             <Route path="/register" element={!token ? <Register /> : <Navigate to="/" />} />
+            <Route path="*" element={<Navigate to="/" />} /> 
         </Routes>
       </Router>
       </SocketContext.Provider>

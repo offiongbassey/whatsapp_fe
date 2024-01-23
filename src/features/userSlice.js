@@ -70,10 +70,8 @@ export const getLoggedInStatus = createAsyncThunk(
   async(token, {rejectWithValue}) => {
     try {
       const { data } = await axios.get(`${AUTH_ENDPOINT}/logged-in-status/${token}`);
-      console.log('testing loginstatus ', data.data)
       return data.data;
     } catch (error) {
-      console.log("errors ", error);
       return rejectWithValue(error.response.data.error.message);
     }
   }

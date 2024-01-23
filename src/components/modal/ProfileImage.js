@@ -1,7 +1,6 @@
 
 
 export default function ProfileImage({ open, onClose, setOpenModal, user}) {
-    console.log("geetingint", open);
   return (
     <div
         onClick={onClose}
