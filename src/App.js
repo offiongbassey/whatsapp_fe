@@ -14,7 +14,7 @@ import { ErrorBoundary } from "react-error-boundary";
 import ErrorFallback from "./components/lazyLoad/ErrorFallback";
 
 const Home = lazy(() => import('./pages/home'));
-console.log("this is process", process.env.REACT_APP_API_ENDPOINT);
+console.log("this is process new", process.env.REACT_APP_API_ENDPOINT);
 //socket io
 const socket = io(process.env.REACT_APP_API_ENDPOINT.split("/api/v1")[0]);
 
