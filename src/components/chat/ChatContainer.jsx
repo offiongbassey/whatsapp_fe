@@ -42,7 +42,7 @@ export default function ChatContainer({
     <div
       className={`md:relative absolute ${
         !mobileToggle ? "invisible sm:visible" : ""
-      } w-[90%] border-l dark:border-l-dark_border_2 select-none overflow-hidden`}
+      } w-[88%] md:w-[90%] border-l dark:border-l-dark_border_2 select-none overflow-hidden`}
     >
       {/* Container */}
       <div>
@@ -76,6 +76,7 @@ export default function ChatContainer({
               currentReplyMessage={currentReplyMessage}
               setCurrentReplyMessage={setCurrentReplyMessage}
               openReplyMessage={openReplyMessage}
+              mobileToggle={mobileToggle}
             />
           </>
         )}

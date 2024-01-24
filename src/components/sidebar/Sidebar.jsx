@@ -20,7 +20,7 @@ const Sidebar = ({
     <div
       className={`flex0030 ${
         mobileToggle ? "invisible sm:visible" : "w-full"
-      }   h-full select-none bg-white dark:bg-dark_bg_1`}
+      }   h-screen select-none bg-white dark:bg-dark_bg_1`}
     >
       {/*sidebar header */}
       <SidebarHeader />
