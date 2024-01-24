@@ -11,7 +11,7 @@ export default function ProfileMenu({ setShowProfile, user }) {
     
     return(
         <>
-        <div className="absolute left-0 z-50 h-screen bg-light_bg_1 dark:bg-dark_bg_2 dark:text-dark_text_1 shadow-md w-[440px]">
+        <div className="absolute left-0 z-50 h-screen bg-light_bg_1 dark:bg-dark_bg_2 dark:text-dark_text_1 shadow-md w-full md:w-[440px]">
                 
                     <div className=" bg-green_2 pt-[450px] text-white">
                         <button
@@ -30,15 +30,15 @@ export default function ProfileMenu({ setShowProfile, user }) {
                             <div className="flex flex-col items-center p-10">
                                     <div className="group relative">
                                         <img
-                                           
+                                            onClick={() => setProfileImageMenu((prev) => !prev)}
                                             src={user.picture}
                                             alt="profile"
                                             className="w-48 h-full rounded-full object-cover group-hover:opacity-40"
                                             />
                                             <div
                                              onClick={() => setProfileImageMenu((prev) => !prev)}
-                                            class="absolute inset-0 flex text-center items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
-                                                    <p class="text-white text-sm">CHANGE <br/> PROFILE <br/> PHOTO </p>
+                                            className="absolute inset-0 flex text-center items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
+                                                    <p className="text-white text-sm">CHANGE <br/> PROFILE <br/> PHOTO </p>
                                         </div>
                                     </div>
                             </div>

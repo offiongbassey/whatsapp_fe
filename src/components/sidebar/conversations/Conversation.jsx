@@ -10,6 +10,7 @@ import {
 import { capitalize } from "../../../utils/string";
 import SocketContext from "../../../context/sendContext.js";
 import DangerIcon from "../../../svg/Danger.js";
+import { useState } from "react";
 
 function Conversation({
   convo,
@@ -22,11 +23,21 @@ function Conversation({
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
   const { activeConversation } = useSelector((state) => state.chat);
+
   const values = {
     token: user.token,
     isGroup: convo.isGroup ? convo._id : false,
     receiver_id: getConversationId(user, convo.users),
   };
+
+  function isMobileScreen() {
+    return window.innerWidth <= 768;
+  }
+  let isMobile;
+  if(isMobileScreen()) isMobile = true;
+  else isMobile = false;
+  
+  console.log("is mobile", isMobile);
   const openConversation = async () => {
     let newConvo = await dispatch(openCreateCoversation(values));
     if(newConvo.payload.success === true) {
@@ -39,7 +50,7 @@ function Conversation({
     <li
       onClick={() => {
         openConversation();
-        setMobileToggle(true);
+        isMobile && setMobileToggle(true);
       }}
       className={`list-none h-[72px] w-full dark:bg-dark_bg_1  hover:${
         convo._id !== activeConversation._id ? "dark:bg-dark_bg_2 bg-white" : ""

@@ -18,7 +18,7 @@ export default function SidebarHeader() {
       {/* Sidebar header */}
       <div className="h-[50px] bg-light_bg_1 dark:bg-dark_bg_2 flex items-center p16">
         {/* Container */}
-        <div className="w-full flex items-center justify-between">
+        <div className="w-72 md:w-[full] flex items-center justify-between">
           {/* user image */}
           <button 
           onClick={() => setShowProfile((prev) => !prev)}
