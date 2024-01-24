@@ -16,13 +16,13 @@ export default function DeleteModal({
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className={`dark:bg-dark_hover_1 bg-white text-light_text_1 rounded-sm shadow-xl p-6 transition-all 
+        className={`dark:bg-dark_hover_1 w-64 md:w-96 bg-white text-light_text_1 rounded-sm shadow-xl p-6 transition-all 
       ${open ? "scale-100 opacity-100" : "scale-125 opacity-0"}
       `}
       >
         <div className="">
           <p className="dark:text-dark_svg_1 text-sm mb-12">Delete messages?</p>
-          <div className="mx-auto my-4 w-96 flex flex-col items-end">
+          <div className="mx-auto my-4 flex flex-col items-end">
             <button
               onClick={() => deleteMessageHandler(message._id)}
               className="btn w-[200px] mb-6 text-teal-600 hover:text-teal-500 dark:bg-dark_hover_1 border border-light_bg_3 hover:shadow-xl transition duration-700 dark:border-gray-600"
