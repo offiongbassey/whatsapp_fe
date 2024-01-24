@@ -37,7 +37,6 @@ function Conversation({
   if(isMobileScreen()) isMobile = true;
   else isMobile = false;
   
-  console.log("is mobile", isMobile);
   const openConversation = async () => {
     let newConvo = await dispatch(openCreateCoversation(values));
     if(newConvo.payload.success === true) {
