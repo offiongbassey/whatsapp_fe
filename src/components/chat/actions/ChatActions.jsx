@@ -34,7 +34,6 @@ function ChatActions({
     token,
     reply_id: currentReplyMessage !== "" ? currentReplyMessage._id : null,
   };
-  console.log("toogle", mobileToggle)
 
   const SendMessageHandler = async (e) => {
     e.preventDefault();
