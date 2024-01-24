@@ -39,7 +39,7 @@ function ReactionEmoji({ showEmoji, onClose, setShowEmoji, message, socket }) {
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className={`dark:bg-transparent bg-transparent rounded-sm p-6 transition-all 
+        className={`dark:bg-transparent bg-transparent rounded-sm p-6 w-64 md:w-96 transition-all 
       ${showEmoji ? "scale-100 opacity-100" : "scale-125 opacity-0"}
       `}
       >

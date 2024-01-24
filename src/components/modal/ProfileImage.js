@@ -34,7 +34,7 @@ export default function ProfileImage({ open, onClose, setOpenModal, user}) {
         <div className="fixed inset-0  flex justify-center items-center">
                 <div
                 onClick={(e) => e.stopPropagation()}
-                className={`shadow transition-all
+                className={`shadow transition-all w-64 md:w-96
                 ${open ? "scale-100 opacity-100" : "scale-125 opacity-0"}
                 `}
                 >

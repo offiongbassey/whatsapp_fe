@@ -23,7 +23,7 @@ export default function ThemeModal({ open, onClose, setShowTheme }) {
        
       <div 
         onClick={(e) => e.stopPropagation()}
-        className={`dark:bg-dark_hover_1 bg-white text-light_text_1 rounded-sm shadow-xl p-6 transition-all
+        className={`dark:bg-dark_hover_1 bg-white w-64 md:w-96 text-light_text_1 rounded-sm shadow-xl p-6 transition-all
         ${open ? "scale-100 opacity-100": "scale-125 opacity-0"}
         `}
       >
@@ -135,7 +135,7 @@ export default function ThemeModal({ open, onClose, setShowTheme }) {
                         </label>
                     </div>
             </div>
-            <div className='mx-auto my-4 w-96 flex gap-3 items-end justify-end'>
+            <div className='mx-auto my-4 flex gap-3 items-end justify-end'>
                 <button
                 onClick={() => setShowTheme(false)}
                     className='btn w-[100px] mb-2 text-teal-600 hover:text-teal-500 dark:bg-dark_hover_1 border border-light_bg_3 shadow-2xl transition duration-700 dark:border-gray-600'
@@ -145,7 +145,7 @@ export default function ThemeModal({ open, onClose, setShowTheme }) {
                 <button
                 type='button'
                 onClick={handleTheme}
-                className='btn w-[70px] mb-2 dark:text-dark_bg_1 bg-green_3 text-white hover:text-dark_bg_1 dark:bg-teal-600 dark:hover:bg-teal-500'
+                className='btn w-[70px] mb-2 dark:text-dark_bg_1 bg-green_3 text-white  dark:bg-teal-600 dark:hover:bg-teal-500'
                 >
                 OK
                 </button>

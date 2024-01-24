@@ -54,7 +54,7 @@ export default function ProfileImageUpload({ open, onClose, setProfileUpload, us
     >
        <div
           onClick={(e) => e.stopPropagation()}
-          className={`dark:bg-dark_hover_1 bg-green_2 w-[35%] min-w-96 rounded-sm shadow pt-6 transition-all
+          className={`dark:bg-dark_hover_1 bg-green_2 w-64 md:w-96 rounded-sm shadow pt-6 transition-all
         ${open ? "scale-100 opacity-100" : "scale-125 opacity-0"}`}
         >
             <div>
