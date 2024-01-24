@@ -224,8 +224,7 @@ function Home({ socket }) {
           {activeConversation._id ? (
             <ChatContainer
               onlineUsers={onlineUsers}
-              t
-              yping={typing}
+              typing={typing}
               callUser={callUser}
               deletedMessage={deletedMessage}
               setDeletedMessage={setDeletedMessage}

@@ -15,6 +15,7 @@ function ChatActions({
   currentReplyMessage,
   setCurrentReplyMessage,
   openReplyMessage,
+  mobileToggle
 }) {
   const dispatch = useDispatch();
   const [showAttachments, setShowAttachments] = useState(false);
@@ -33,6 +34,7 @@ function ChatActions({
     token,
     reply_id: currentReplyMessage !== "" ? currentReplyMessage._id : null,
   };
+  console.log("toogle", mobileToggle)
 
   const SendMessageHandler = async (e) => {
     e.preventDefault();
@@ -171,6 +173,8 @@ function ChatActions({
       <div className="w-full flex items-center gap-x-2">
         {/* emojies and attachement */}
         <ul className="flex gap-x-2">
+          {/*  hiding emojipicker on mobile device */}
+          {!mobileToggle &&
           <EmojiPickerApp
             textRef={textRef}
             message={message}
@@ -179,6 +183,7 @@ function ChatActions({
             setShowEmoji={setShowEmoji}
             setShowAttachments={setShowAttachments}
           />
+          }
           <Attachments
             showAttachments={showAttachments}
             setShowAttachments={setShowAttachments}

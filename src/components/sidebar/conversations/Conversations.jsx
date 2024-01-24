@@ -12,6 +12,7 @@ export default function Conversations({
     (state) => state.chat
   );
   const { user } = useSelector((state) => state.user);
+  
   return (
     <div className="convos scrollbar">
       <ul>

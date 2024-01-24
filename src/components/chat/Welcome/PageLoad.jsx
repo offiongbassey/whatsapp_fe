@@ -10,7 +10,7 @@ export default function PageLoad({ timer }) {
             <span className='scale-[2.7] dark:fill-dark_svg_2 fill-light_bg_3'>
                 <WelcomeIcon />
             </span>
-            <div class="md:w-[30%] w-[70%] bg-gray-200 h-[3px] dark:bg-gray-700 mt-5">
+            <div className="md:w-[30%] w-[70%] bg-gray-200 h-[3px] dark:bg-gray-700 mt-5">
                         <div className={` bg-green_2 h-[3px] w-[${timer}%] `}></div>
                 </div>
             {/* Page Loading info */}
