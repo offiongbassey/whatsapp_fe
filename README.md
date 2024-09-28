@@ -1,70 +1,60 @@
-# Getting Started with Create React App
+<h1>Whatsapp Clone Client Repository</h1>
+<ul>
+  <li>Backend Repository: https://github.com/offiongbassey/whatsapp_be</li>
+</ul>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<h2>About</h2>
+<p>This Whatsapp Clone is a web version that allows you to chat and make video call amongst your friends. It leaverages biodirectional communication technologies such as WebRTC and socket.io for real-time data transmission, enabling seamless messaging and video calls by emiting and listening to events.</p>
 
-## Available Scripts
+<img src="https://res.cloudinary.com/dfhabqprq/image/upload/v1727498046/what-1_pjs3qh.png" alt="whats-app-1" />
+<img src="https://res.cloudinary.com/dfhabqprq/image/upload/v1727498418/what-2_2_cvuxbv.png" alt="whats-app-2" />
 
-In the project directory, you can run:
+<h2>Features</h2>
+<ul>
+  <li>Authentication: Signup & Login</li>
+  <li>Group Chat: Create groups, add members and send messages</li>
+  <li>Chat: Send messages, reply & react to messages, delete messages, send files (Images, videos & documents).</li>
+  <li>Profile: Update profile image</li>
+  <li>Video Call</li>
+  <li>Theme: Dark Mode and Light Mode (Tailwind)</li>
+</ul>
 
-### `yarn start`
+<h2>Installation</h2>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. Clone the repository:
+```js
+  https://github.com/offiongbassey/whatsapp_fe.git
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+2. Install dependencies:
+```js
+npm install
+```
+or 
+```js
+yan install
+```
 
-### `yarn test`
+4. Setup Environment Variables:
+```js
+REACT_APP_API_ENDPOINT=http://localhost:8080/api/v1
+REACT_APP_CLOUD_NAME=
+REACT_APP_CLOUD_SECRET=
+REACT_APP_DARK_BACKGROUND=https://res.cloudinary.com/dmhcnhtng/image/upload/v1677358270/Untitled-1_copy_rpx8yb.jpg
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+6. Start the application on Development Mode:
+```js
+   npm run dev
+```
+   or
+```js
+   yarn dev
+```
 
-### `yarn build`
+7. Access the application at:
+```js
+https://localhost:3000
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
